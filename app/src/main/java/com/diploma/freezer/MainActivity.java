@@ -1,48 +1,48 @@
 package com.diploma.freezer;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.diploma.freezer.databinding.ActivityMainBinding;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
 
-    FirebaseAuth auth;
-    Button button;
-    TextView textView;
-    FirebaseUser user;
+    private ActivityMainBinding binding;
 
-
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        replaceFragment(new RecipesFragment());
 
-        auth = FirebaseAuth.getInstance();
-        button = findViewById(R.id.logout);
-        textView = findViewById(R.id.user_details);
-        user = auth.getCurrentUser();
-        if (user == null){
-            Intent intent = new Intent(getApplicationContext(), Login.class);
-            startActivity(intent);
-            finish();
-        }else {
-            textView.setText(user.getEmail());
-        }
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
-                finish();
+
+        binding.bottomNavView.setOnItemSelectedListener(item -> {
+
+            if (item.getItemId() == R.id.navigation_freezer){
+                replaceFragment(new FreezerFragment());
+            }else if (item.getItemId() == R.id.navigation_recipes){
+                replaceFragment(new RecipesFragment());
+            }else if (item.getItemId() == R.id.navigation_account) {
+                replaceFragment(new AccountFragment());
             }
+
+            return true;
         });
+
+    }
+    private void replaceFragment(Fragment fragment){
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout,fragment);
+        fragmentTransaction.commit();
+
     }
 }
