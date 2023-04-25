@@ -11,4 +11,5 @@
     <string name="title_freezer">Freezer</string>
     <string name="title_recipes">Recipes</string>
     <string name="title_profile">Profile</string>
+    <string name="hello">Hello, </string>
 </resources>
