@@ -18,13 +18,19 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Register extends AppCompatActivity {
-    TextInputEditText editTextEmail, editTextPassword;
+    TextInputEditText editTextEmail, editTextPassword, editTextName;
     Button buttonReg;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
+    FirebaseFirestore base;
 
     @Override
     public void onStart() {
@@ -44,9 +50,11 @@ public class Register extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
+        editTextName = findViewById(R.id.name);
         buttonReg = findViewById(R.id.btn_register);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.loginNow);
+        base = FirebaseFirestore.getInstance();
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,9 +68,10 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
-                String email, password;
+                String email, password, name;
                 email = String.valueOf(editTextEmail.getText()) ;
                 password = String.valueOf(editTextPassword.getText());
+                name = String.valueOf(editTextName.getText());
 
                 if (TextUtils.isEmpty(email)){
                     Toast.makeText(Register.this, "Enter email", Toast.LENGTH_SHORT).show();
@@ -73,6 +82,10 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(Register.this, "Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (TextUtils.isEmpty(name)){
+                    Toast.makeText(Register.this, "Enter name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -80,6 +93,12 @@ public class Register extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
+
+                                    CollectionReference users = base.collection("users");
+                                    Map<String, String> map = new HashMap<>();
+                                    map.put("name", name);
+                                    users.document(email).set(map);
+
                                     Toast.makeText(Register.this, "Account created.",
                                             Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), Login.class);
