@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    public static User currentFirebaseUser;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new RecipesFragment());
+
+        currentFirebaseUser = new User();
 
 
         binding.bottomNavView.setOnItemSelectedListener(item -> {

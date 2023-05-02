@@ -67,7 +67,6 @@ public class Register extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
                 String email, password, name;
                 email = String.valueOf(editTextEmail.getText()) ;
                 password = String.valueOf(editTextPassword.getText());
@@ -86,6 +85,7 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(Register.this, "Enter name", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                progressBar.setVisibility(View.VISIBLE);
 
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -113,6 +113,7 @@ public class Register extends AppCompatActivity {
                                 }
                             }
                         });
+
             }
         });
     }
