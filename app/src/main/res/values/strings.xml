@@ -13,4 +13,5 @@
     <string name="title_profile">Profile</string>
     <string name="hello">Hello, </string>
     <string name="name">name</string>
+    <string name="food_name">Food name</string>
 </resources>
