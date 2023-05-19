@@ -13,7 +13,9 @@ import androidx.fragment.app.FragmentTransaction;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    public static User currentFirebaseUser;
+    public static User currentFirebaseUser;//Создаем юзера
+    public static Fridge currentFridge;//Создаем базу продуктов
+
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         replaceFragment(new RecipesFragment());
 
         currentFirebaseUser = new User();
+        currentFridge = new Fridge();
 
 
         binding.bottomNavView.setOnItemSelectedListener(item -> {
