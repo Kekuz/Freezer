@@ -4,6 +4,8 @@ import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 
@@ -19,9 +21,11 @@ import java.util.ArrayList;
 public class Recipes {
     private final ArrayList<RecipeItem> recipeItems = new ArrayList<>();
     private final FirebaseFirestore db;
+    ProgressBar progressBar;
 
 
-    public Recipes() {
+    public Recipes(ProgressBar progressBar) {
+        this.progressBar = progressBar;
         db = FirebaseFirestore.getInstance();
         syncData();
     }
@@ -32,7 +36,7 @@ public class Recipes {
 
     private void syncData(){
 
-        db.collection("recipes1").orderBy("caption", Query.Direction.ASCENDING)
+        db.collection("recipes").orderBy("caption", Query.Direction.ASCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
@@ -46,7 +50,8 @@ public class Recipes {
                         for (DocumentChange dc : value.getDocumentChanges()){
                             if(dc.getType() == DocumentChange.Type.ADDED){
                                 recipeItems.add(dc.getDocument().toObject(RecipeItem.class));
-                                Log.d(TAG, "Recipe data: " + recipeItems.toString());
+                                Log.d(TAG, "Recipe data: " + recipeItems);
+                                progressBar.setVisibility(View.GONE);
                             }
                         }
 

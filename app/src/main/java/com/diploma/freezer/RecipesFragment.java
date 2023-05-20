@@ -29,7 +29,7 @@ public class RecipesFragment extends Fragment {
         recipesItemAdapter = new RecipesItemAdapter(inflatedView.getContext(), currentRecipes.getRecipeItems());
 
         gridView.setAdapter(recipesItemAdapter);
-        recipesItemAdapter.notifyDataSetChanged();
+        //recipesItemAdapter.notifyDataSetChanged();
 
         return inflatedView;
     }

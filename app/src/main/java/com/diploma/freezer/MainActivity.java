@@ -2,6 +2,7 @@ package com.diploma.freezer;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.widget.ProgressBar;
 
 import com.diploma.freezer.databinding.ActivityMainBinding;
 
@@ -16,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     public static User currentFirebaseUser;//Создаем юзера
     public static Fridge currentFridge;//Создаем базу продуктов
     public static Recipes currentRecipes;//Создаем базу рецептов
-
+    ProgressBar progressBar;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -24,13 +25,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        progressBar = findViewById(R.id.progressBarDB);
         replaceFragment(new RecipesFragment());
 
         currentFirebaseUser = new User();
         currentFridge = new Fridge();
-        currentRecipes = new Recipes();
+        currentRecipes = new Recipes(progressBar);
 
-
+        binding.bottomNavView.getMenu().findItem(R.id.navigation_recipes).setChecked(true);// выбираем рецепты по умолчанию
         binding.bottomNavView.setOnItemSelectedListener(item -> {
 
             if (item.getItemId() == R.id.navigation_freezer){
