@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     public static User currentFirebaseUser;//Создаем юзера
     public static Fridge currentFridge;//Создаем базу продуктов
+    public static Recipes currentRecipes;//Создаем базу рецептов
 
 
     @SuppressLint("NonConstantResourceId")
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         currentFirebaseUser = new User();
         currentFridge = new Fridge();
+        currentRecipes = new Recipes();
 
 
         binding.bottomNavView.setOnItemSelectedListener(item -> {

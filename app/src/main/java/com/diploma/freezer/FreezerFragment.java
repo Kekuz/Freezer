@@ -20,7 +20,7 @@ public class FreezerFragment extends Fragment {
     FreezerItemsAdapter freezerItemsAdapter;
 
 
-    @SuppressLint({"MissingInflatedId", "CheckResult", "NotifyDataSetChanged"})
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
