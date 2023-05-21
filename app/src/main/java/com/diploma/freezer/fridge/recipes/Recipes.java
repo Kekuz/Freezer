@@ -1,4 +1,4 @@
-package com.diploma.freezer;
+package com.diploma.freezer.fridge.recipes;
 
 import static android.content.ContentValues.TAG;
 

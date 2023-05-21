@@ -1,4 +1,4 @@
-package com.diploma.freezer;
+package com.diploma.freezer.account;
 
 import static com.diploma.freezer.MainActivity.currentFirebaseUser;
 
@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
+import com.diploma.freezer.logreg.Login;
+import com.diploma.freezer.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 

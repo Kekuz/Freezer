@@ -1,4 +1,4 @@
-package com.diploma.freezer;
+package com.diploma.freezer.fridge.recipes;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.diploma.freezer.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

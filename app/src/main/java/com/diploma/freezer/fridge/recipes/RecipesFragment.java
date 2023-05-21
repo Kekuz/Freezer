@@ -1,4 +1,4 @@
-package com.diploma.freezer;
+package com.diploma.freezer.fridge.recipes;
 
 import static com.diploma.freezer.MainActivity.currentRecipes;
 
@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+
+import com.diploma.freezer.R;
 
 
 public class RecipesFragment extends Fragment {

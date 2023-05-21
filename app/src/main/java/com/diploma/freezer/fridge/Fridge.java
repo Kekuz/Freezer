@@ -1,4 +1,4 @@
-package com.diploma.freezer;
+package com.diploma.freezer.fridge;
 
 import static android.content.ContentValues.TAG;
 

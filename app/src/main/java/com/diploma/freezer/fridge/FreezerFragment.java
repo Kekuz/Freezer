@@ -1,4 +1,4 @@
-package com.diploma.freezer;
+package com.diploma.freezer.fridge;
 
 
 import static com.diploma.freezer.MainActivity.currentFridge;
@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.diploma.freezer.R;
 
 public class FreezerFragment extends Fragment {
 
