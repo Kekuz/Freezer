@@ -6,10 +6,13 @@ public class RecipeItem {
     private String caption;
     private String image;
 
+    private String description;
+
     public RecipeItem(){}//Тоже удалять запрещено!!!
 
-    public RecipeItem(String caption, String image) {
+    public RecipeItem(String caption,String description, String image) {
         this.caption = caption;
+        this.description = description;
         this.image = image;
     }
 
@@ -22,6 +25,7 @@ public class RecipeItem {
     public String getImage() {
         return image;
     }
+    public String getDescription() {return description;}
 
     public void setImage(String image) {
         this.image = image;
