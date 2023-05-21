@@ -1,4 +1,4 @@
-package com.diploma.freezer.fridge.recipes;
+package com.diploma.freezer.recipes;
 
 import androidx.appcompat.app.AppCompatActivity;
 

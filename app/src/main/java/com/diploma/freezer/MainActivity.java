@@ -8,8 +8,8 @@ import com.diploma.freezer.account.AccountFragment;
 import com.diploma.freezer.databinding.ActivityMainBinding;
 import com.diploma.freezer.fridge.FreezerFragment;
 import com.diploma.freezer.fridge.Fridge;
-import com.diploma.freezer.fridge.recipes.Recipes;
-import com.diploma.freezer.fridge.recipes.RecipesFragment;
+import com.diploma.freezer.recipes.Recipes;
+import com.diploma.freezer.recipes.RecipesFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
