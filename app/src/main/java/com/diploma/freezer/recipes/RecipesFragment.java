@@ -19,7 +19,7 @@ import com.diploma.freezer.R;
 
 public class RecipesFragment extends Fragment {
     GridView gridView;
-    RecipesItemAdapter recipesItemAdapter;
+    public static RecipesItemAdapter recipesItemAdapter;
 
 
 
@@ -48,8 +48,6 @@ public class RecipesFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        //recipesItemAdapter.notifyDataSetChanged();
 
         return inflatedView;
     }

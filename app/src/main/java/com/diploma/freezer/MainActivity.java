@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public static Fridge currentFridge;//Создаем базу продуктов
     public static ArrayList<FreezerItem> userFridge;//Продукты в холодильнике у пользователя
     public static Recipes currentRecipes;//Создаем базу рецептов
-    ProgressBar progressBar;
+    public static ProgressBar progressBar;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         currentFirebaseUser = new User();
         currentFridge = new Fridge();
         userFridge = new ArrayList<>();;
-        currentRecipes = new Recipes(progressBar);
+        currentRecipes = new Recipes();
 
         binding.bottomNavView.getMenu().findItem(R.id.navigation_recipes).setChecked(true);// выбираем рецепты по умолчанию
         binding.bottomNavView.setOnItemSelectedListener(item -> {

@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 
+import com.diploma.freezer.MainActivity;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -21,11 +22,9 @@ import java.util.ArrayList;
 public class Recipes {
     private final ArrayList<RecipeItem> recipeItems = new ArrayList<>();
     private final FirebaseFirestore db;
-    ProgressBar progressBar;
 
 
-    public Recipes(ProgressBar progressBar) {
-        this.progressBar = progressBar;
+    public Recipes() {
         db = FirebaseFirestore.getInstance();
         syncData();
     }
@@ -47,11 +46,13 @@ public class Recipes {
                             return;
                         }
 
+                        assert value != null;
                         for (DocumentChange dc : value.getDocumentChanges()){
                             if(dc.getType() == DocumentChange.Type.ADDED){
                                 recipeItems.add(dc.getDocument().toObject(RecipeItem.class));
                                 Log.d(TAG, "Recipe data: " + recipeItems);
-                                progressBar.setVisibility(View.GONE);
+                                MainActivity.progressBar.setVisibility(View.GONE);
+                                RecipesFragment.recipesItemAdapter.notifyDataSetChanged();
                             }
                         }
 
