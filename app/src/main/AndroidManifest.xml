@@ -15,14 +15,18 @@
         android:theme="@style/Theme.Material3.Light"
         tools:targetApi="31">
         <activity
-            android:name=".recipes.RecipeActivity"
+            android:name=".fridge.AllFreezerItemsActivity"
             android:exported="false"
             android:theme="@style/Theme.Material3.Light.NoActionBar"/>
+        <activity
+            android:name=".recipes.RecipeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Light.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/title_activity_main"
-            android:theme="@style/Theme.Material3.Light.NoActionBar"/>
+            android:theme="@style/Theme.Material3.Light.NoActionBar" />
         <activity
             android:name=".logreg.Register"
             android:exported="false"
