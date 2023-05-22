@@ -27,7 +27,7 @@ public class AllFreezerItemsActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        freezerItemsAdapter = new FreezerItemsAdapter(this, currentFridge.getFreezerItems());
+        freezerItemsAdapter = new FreezerItemsUserAdapter(this, currentFridge.getFreezerItems());//тут передаем общий адаптер
         recyclerView.setAdapter(freezerItemsAdapter);
 
     }

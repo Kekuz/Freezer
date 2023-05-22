@@ -48,10 +48,9 @@ public class FreezerFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(inflatedView.getContext()));
 
-        freezerItemsAdapter = new FreezerItemsAdapter(inflatedView.getContext(), userFridge);
+        freezerItemsAdapter = new FreezerItemsAdapter(inflatedView.getContext(), userFridge);//Тут передаем адаптер для юзера!
         recyclerView.setAdapter(freezerItemsAdapter);
 
-        freezerItemsAdapter.notifyDataSetChanged();
 
         return inflatedView;
     }

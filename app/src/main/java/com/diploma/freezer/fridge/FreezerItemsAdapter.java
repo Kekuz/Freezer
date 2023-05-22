@@ -46,14 +46,18 @@ public class FreezerItemsAdapter extends RecyclerView.Adapter<FreezerItemsAdapte
 
         holder.foodName.setText(freezerItem.getFoodName());
         Picasso.get().load(freezerItem.getImage()).into(holder.image);
+        
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userFridge.add(freezerItem);
+                userFridge.remove(freezerItem);
+                notifyDataSetChanged();
                 Log.i("Item click:", "num"+ freezerItem);
             }
         });
+
+
     }
 
     @Override
