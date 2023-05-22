@@ -10,7 +10,7 @@ import com.diploma.freezer.R;
 import com.squareup.picasso.Picasso;
 
 public class RecipeActivity extends AppCompatActivity {
-    TextView captionView, descriptionView;
+    TextView captionView, descriptionView, productsTextView;
     ImageView imageView;
 
     @Override
@@ -21,10 +21,12 @@ public class RecipeActivity extends AppCompatActivity {
         captionView = findViewById(R.id.captionTextView);
         descriptionView = findViewById(R.id.descriptionTextView);
         imageView = findViewById(R.id.recipeImageView);
-
+        productsTextView = findViewById(R.id.productsTextView);
 
         descriptionView.setText(getIntent().getExtras().getString("description"));
         captionView.setText(getIntent().getExtras().getString("caption"));
+        productsTextView.setText(getIntent().getExtras().getString("ingredients"));
+
         Picasso.get().load(getIntent().getExtras().getString("image")).into(imageView);
     }
 }

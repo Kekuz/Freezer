@@ -45,6 +45,7 @@ public class RecipesFragment extends Fragment {
                 intent.putExtra("caption", currentRecipes.getRecipeItems().get(i).getCaption());
                 intent.putExtra("image", currentRecipes.getRecipeItems().get(i).getImage());
                 intent.putExtra("description", currentRecipes.getRecipeItems().get(i).getDescription());
+                intent.putExtra("ingredients",currentRecipes.getRecipeItems().get(i).getStringIngredients());
                 startActivity(intent);
             }
         });

@@ -2,24 +2,28 @@ package com.diploma.freezer.recipes;
 
 import androidx.annotation.NonNull;
 
+import java.util.List;
+
 public class RecipeItem {
     private String caption;
     private String image;
 
     private String description;
+    private List<String> ingredients;
 
     public RecipeItem(){}//Тоже удалять запрещено!!!
 
-    public RecipeItem(String caption,String description, String image) {
+    public RecipeItem(String caption,String description, String image,List<String> ingredients) {
         this.caption = caption;
         this.description = description;
         this.image = image;
+        this.ingredients = ingredients;
     }
 
     @NonNull
     @Override
     public String toString() {
-        return this.caption + " " + this.image;
+        return this.caption + " " + ingredients;
     }
 
     public String getImage() {
@@ -33,6 +37,16 @@ public class RecipeItem {
 
     public String getCaption() {
         return caption;
+    }
+
+    public List<String> getIngredients() {return ingredients;}
+
+    public String getStringIngredients(){
+        StringBuilder str = new StringBuilder("Необходимые продукты:\n");
+        for (String x: ingredients) {
+            str.append("· ").append(x).append("\n");
+        }
+        return str.toString();
     }
 
     public void setCaption(String caption) {
