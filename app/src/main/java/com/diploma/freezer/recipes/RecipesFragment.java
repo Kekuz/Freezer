@@ -1,6 +1,7 @@
 package com.diploma.freezer.recipes;
 
 import static com.diploma.freezer.MainActivity.currentRecipes;
+import static com.diploma.freezer.MainActivity.userFridge;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,11 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.diploma.freezer.R;
+import com.diploma.freezer.fridge.FreezerItem;
+
+import org.checkerframework.checker.units.qual.A;
+
+import java.util.ArrayList;
 
 
 public class RecipesFragment extends Fragment {
@@ -31,8 +37,8 @@ public class RecipesFragment extends Fragment {
 
         gridView = inflatedView.findViewById(R.id.gridView);
 
-        recipesItemAdapter = new RecipesItemAdapter(inflatedView.getContext(), currentRecipes.getRecipeItems());
-
+        //recipesItemAdapter = new RecipesItemAdapter(inflatedView.getContext(), currentRecipes.getRecipeItems());
+        recipesItemAdapter = new RecipesItemAdapter(inflatedView.getContext(), FilteredRecipes());
         gridView.setAdapter(recipesItemAdapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -51,6 +57,26 @@ public class RecipesFragment extends Fragment {
         });
 
         return inflatedView;
+    }
+
+    private ArrayList<RecipeItem> FilteredRecipes(){
+
+        ArrayList<RecipeItem> res = new ArrayList<>();
+
+        ArrayList<RecipeItem> allRec = currentRecipes.getRecipeItems(); //все рецепты
+
+        ArrayList<String> userIng = new ArrayList<>();//еда в холодильнике
+        for (FreezerItem x :userFridge) {
+            userIng.add(x.getFoodName());
+        }
+
+        for (RecipeItem x: allRec) {
+            ArrayList<String> recipeIng = (ArrayList<String>) x.getIngredients();
+            Log.i("recipeIng: ", x.getIngredients().toString());
+            if(recipeIng.equals(userIng)) res.add(x);
+        }
+        if (res.isEmpty() && userIng.isEmpty()) return allRec;
+        else return res;
     }
 
 }
