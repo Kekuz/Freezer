@@ -18,7 +18,6 @@ import android.widget.GridView;
 import com.diploma.freezer.R;
 import com.diploma.freezer.fridge.FreezerItem;
 
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 
@@ -38,20 +37,21 @@ public class RecipesFragment extends Fragment {
         gridView = inflatedView.findViewById(R.id.gridView);
 
         //recipesItemAdapter = new RecipesItemAdapter(inflatedView.getContext(), currentRecipes.getRecipeItems());
-        recipesItemAdapter = new RecipesItemAdapter(inflatedView.getContext(), FilteredRecipes());
+        ArrayList<RecipeItem> filtered = FilteredRecipes();
+        recipesItemAdapter = new RecipesItemAdapter(inflatedView.getContext(), filtered);
         gridView.setAdapter(recipesItemAdapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.i("GridViewInfo: ", "position " + i + " "+ currentRecipes.getRecipeItems().get(i));
+                Log.i("GridViewInfo: ", "position " + i + " "+ filtered.get(i));
 
                 Intent intent = new Intent(inflatedView.getContext(), RecipeActivity.class);
 
-                intent.putExtra("caption", currentRecipes.getRecipeItems().get(i).getCaption());
-                intent.putExtra("image", currentRecipes.getRecipeItems().get(i).getImage());
-                intent.putExtra("description", currentRecipes.getRecipeItems().get(i).getDescription());
-                intent.putExtra("ingredients",currentRecipes.getRecipeItems().get(i).getStringIngredients());
+                intent.putExtra("caption", filtered.get(i).getCaption());
+                intent.putExtra("image", filtered.get(i).getImage());
+                intent.putExtra("description", filtered.get(i).getDescription());
+                intent.putExtra("ingredients",filtered.get(i).getStringIngredients());
                 startActivity(intent);
             }
         });
@@ -70,13 +70,22 @@ public class RecipesFragment extends Fragment {
             userIng.add(x.getFoodName());
         }
 
+        // Основной алгоритм
         for (RecipeItem x: allRec) {
-            ArrayList<String> recipeIng = (ArrayList<String>) x.getIngredients();
+            ArrayList<String> recipeIng = (ArrayList<String>) x.getIngredients(); //ингридиенты рецепта
+            int count = 0;
+            for (String y: recipeIng) {
+                for (String z: userIng){
+                    if(y.equals(z)){
+                        count++;
+                    }
+                }
+            }
+            if(recipeIng.size() == count) res.add(x);// Если количество совпадений равно количеству ингридиентов в рецепте, то добавляем
             Log.i("recipeIng: ", x.getIngredients().toString());
-            if(recipeIng.equals(userIng)) res.add(x);
         }
-        if (res.isEmpty() && userIng.isEmpty()) return allRec;
-        else return res;
+        return (res.isEmpty() && userIng.isEmpty()) ? allRec : res;
+        //return res;
     }
 
 }
