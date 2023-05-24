@@ -3,6 +3,7 @@ package com.diploma.freezer.recipes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,7 +24,7 @@ public class RecipeActivity extends AppCompatActivity {
         imageView = findViewById(R.id.recipeImageView);
         productsTextView = findViewById(R.id.productsTextView);
 
-        descriptionView.setText(getIntent().getExtras().getString("description"));
+        descriptionView.setText(Html.fromHtml(getIntent().getExtras().getString("description"), Html.FROM_HTML_MODE_COMPACT));
         captionView.setText(getIntent().getExtras().getString("caption"));
         productsTextView.setText(getIntent().getExtras().getString("ingredients"));
 

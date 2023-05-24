@@ -3,6 +3,7 @@ package com.diploma.freezer.recipes;
 import androidx.annotation.NonNull;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RecipeItem {
     private String caption;
@@ -42,11 +43,7 @@ public class RecipeItem {
     public List<String> getIngredients() {return ingredients;}
 
     public String getStringIngredients(){
-        StringBuilder str = new StringBuilder("Необходимые продукты:\n");
-        for (String x: ingredients) {
-            str.append("· ").append(x).append("\n");
-        }
-        return str.toString();
+        return "·" + String.join("\n·", ingredients);
     }
 
     public void setCaption(String caption) {
