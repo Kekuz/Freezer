@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     app:cardElevation="10dp"
     app:cardCornerRadius="8dp"
     android:layout_margin="8dp"
@@ -27,7 +28,8 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:id="@+id/image"/>
+                android:id="@+id/image"
+                tools:srcCompat="@tools:sample/avatars"/>
         </LinearLayout>
 
         <LinearLayout
@@ -43,7 +45,8 @@
                 android:text="@string/food_name"
                 android:layout_marginStart="15dp"
                 android:textColor="@color/black"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                />
         </LinearLayout>
 
 

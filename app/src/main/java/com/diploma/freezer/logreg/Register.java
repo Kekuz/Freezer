@@ -75,16 +75,16 @@ public class Register extends AppCompatActivity {
                 name = String.valueOf(editTextName.getText());
 
                 if (TextUtils.isEmpty(email)){
-                    Toast.makeText(Register.this, "Enter email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, Register.this.getString(R.string.enter_email), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)){
-                    Toast.makeText(Register.this, "Enter password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, Register.this.getString(R.string.enter_password), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(name)){
-                    Toast.makeText(Register.this, "Enter name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, Register.this.getString(R.string.enter_name), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 progressBar.setVisibility(View.VISIBLE);
@@ -101,7 +101,7 @@ public class Register extends AppCompatActivity {
                                     map.put("name", name);
                                     users.document(email).set(map);
 
-                                    Toast.makeText(Register.this, "Account created.",
+                                    Toast.makeText(Register.this, Register.this.getString(R.string.account_created),
                                             Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), Login.class);
                                     startActivity(intent);
@@ -109,7 +109,7 @@ public class Register extends AppCompatActivity {
                                 } else {
                                     // If sign in fails, display a message to the user.
 
-                                    Toast.makeText(Register.this, "Authentication failed.",
+                                    Toast.makeText(Register.this, Register.this.getString(R.string.authentication_failed),
                                             Toast.LENGTH_SHORT).show();
 
                                 }

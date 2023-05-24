@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.diploma.freezer.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -31,10 +32,10 @@ public class FreezerItemsUserAdapter extends FreezerItemsAdapter{
             public void onClick(View view) {
                 Toast toast;
                 if (!userFridge.contains(freezerItem)){
-                    toast = Toast.makeText(holder.itemView.getContext(), freezerItem.getFoodName() + " added to fridge.", Toast.LENGTH_SHORT);
+                    toast = Toast.makeText(holder.itemView.getContext(), freezerItem.getFoodName() + " " + context.getResources().getString(R.string.added_to_fridge), Toast.LENGTH_SHORT);
                     userFridge.add(freezerItem);
                 }else{
-                    toast = Toast.makeText(holder.itemView.getContext(), freezerItem.getFoodName() + " already exists.", Toast.LENGTH_SHORT);
+                    toast = Toast.makeText(holder.itemView.getContext(), freezerItem.getFoodName() + " " + context.getResources().getString(R.string.already_exists), Toast.LENGTH_SHORT);
                 }
                 toast.show();
 

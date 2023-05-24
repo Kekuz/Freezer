@@ -19,7 +19,7 @@
             android:layout_height="150dp"
             android:id="@+id/gridImage"
             android:scaleType="centerCrop"
-            tools:srcCompat="@tools:sample/backgrounds/scenic"/>
+            tools:srcCompat="@tools:sample/avatars"/>
         
     </androidx.cardview.widget.CardView>
 

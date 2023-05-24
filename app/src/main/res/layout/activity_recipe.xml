@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/recipeImageView"
@@ -27,7 +27,7 @@
         android:id="@+id/captionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Название"
+        android:text="@string/recipe_name"
         android:textSize="30sp"
         android:textStyle="bold"
         android:padding="8dp"
@@ -39,7 +39,7 @@
             android:id="@+id/articleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Необходимые продукты:"
+            android:text="@string/recipe_products"
             android:textStyle="italic"
             android:textSize="25sp"
             android:paddingStart="20dp"
@@ -51,7 +51,7 @@
             android:id="@+id/productsTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="*Продукты\n*Продукты"
+            android:text="@string/product_list"
             android:textSize="22sp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
@@ -63,7 +63,7 @@
             android:id="@+id/instructionsTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Инструкция:"
+            android:text="@string/instruction"
             android:textSize="25sp"
             android:textStyle="bold"
             android:paddingStart="20dp"
@@ -78,7 +78,7 @@
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:paddingBottom="20dp"
-        android:text="Описание"
+        android:text="@string/description"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
