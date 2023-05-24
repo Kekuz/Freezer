@@ -50,7 +50,12 @@ public class RecipesItemAdapter extends BaseAdapter {
         ImageView gridImage = view.findViewById(R.id.gridImage);
         TextView gridCaption = view.findViewById(R.id.gridCaption);
 
-        Picasso.get().load(recipeItems.get(i).getImage()).into(gridImage);
+        try{
+            Picasso.get().load(recipeItems.get(i).getImage()).into(gridImage);
+        }
+        catch (Exception e){
+            gridImage.setImageResource(R.drawable.ic_null_fastfood_24);
+        }
         gridCaption.setText(recipeItems.get(i).getCaption());
 
         return view;

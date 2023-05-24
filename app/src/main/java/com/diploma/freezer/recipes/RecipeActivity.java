@@ -24,10 +24,15 @@ public class RecipeActivity extends AppCompatActivity {
         imageView = findViewById(R.id.recipeImageView);
         productsTextView = findViewById(R.id.productsTextView);
 
+
         descriptionView.setText(Html.fromHtml(getIntent().getExtras().getString("description"), Html.FROM_HTML_MODE_COMPACT));
         captionView.setText(getIntent().getExtras().getString("caption"));
         productsTextView.setText(getIntent().getExtras().getString("ingredients"));
 
-        Picasso.get().load(getIntent().getExtras().getString("image")).into(imageView);
+        try {
+            Picasso.get().load(getIntent().getExtras().getString("image")).into(imageView);
+        }catch (Exception e){
+            imageView.setImageResource(R.drawable.ic_null_fastfood_24);
+        }
     }
 }
