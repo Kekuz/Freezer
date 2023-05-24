@@ -19,6 +19,7 @@ import com.diploma.freezer.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FreezerItemsAdapter extends RecyclerView.Adapter<FreezerItemsAdapter.MyViewHolder> {
 
@@ -63,6 +64,11 @@ public class FreezerItemsAdapter extends RecyclerView.Adapter<FreezerItemsAdapte
     @Override
     public int getItemCount() {
         return freezerItemArrayList.size();
+    }
+
+    public void filterList(ArrayList<FreezerItem> filteredList){
+        freezerItemArrayList = filteredList;
+        notifyDataSetChanged();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
