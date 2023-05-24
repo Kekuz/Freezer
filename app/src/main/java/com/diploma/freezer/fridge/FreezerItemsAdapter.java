@@ -41,7 +41,11 @@ public class FreezerItemsAdapter extends RecyclerView.Adapter<FreezerItemsAdapte
         FreezerItem freezerItem = freezerItemArrayList.get(position);
 
         holder.foodName.setText(freezerItem.getFoodName());
-        Picasso.get().load(freezerItem.getImage()).into(holder.image);
+        try{
+            Picasso.get().load(freezerItem.getImage()).into(holder.image);
+        }catch (Exception e){
+            holder.image.setImageResource(R.drawable.ic_null_fastfood_24);
+        }
 
     }
 

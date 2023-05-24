@@ -25,7 +25,11 @@ public class FreezerItemsUserAdapter extends FreezerItemsAdapter{
         FreezerItem freezerItem = freezerItemArrayList.get(position);
 
         holder.foodName.setText(freezerItem.getFoodName());
+        try {
         Picasso.get().load(freezerItem.getImage()).into(holder.image);
+        }catch (Exception e){
+        holder.image.setImageResource(R.drawable.ic_null_fastfood_24);
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
