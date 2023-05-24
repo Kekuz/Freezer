@@ -1,16 +1,12 @@
 package com.diploma.freezer.fridge;
 
-import static com.diploma.freezer.MainActivity.userFridge;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +15,6 @@ import com.diploma.freezer.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FreezerItemsAdapter extends RecyclerView.Adapter<FreezerItemsAdapter.MyViewHolder> {
 
@@ -47,17 +42,6 @@ public class FreezerItemsAdapter extends RecyclerView.Adapter<FreezerItemsAdapte
 
         holder.foodName.setText(freezerItem.getFoodName());
         Picasso.get().load(freezerItem.getImage()).into(holder.image);
-        
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                userFridge.remove(freezerItem);
-                notifyDataSetChanged();
-                Log.i("Item click:", "num"+ freezerItem);
-            }
-        });
-
 
     }
 
@@ -66,6 +50,7 @@ public class FreezerItemsAdapter extends RecyclerView.Adapter<FreezerItemsAdapte
         return freezerItemArrayList.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void filterList(ArrayList<FreezerItem> filteredList){
         freezerItemArrayList = filteredList;
         notifyDataSetChanged();

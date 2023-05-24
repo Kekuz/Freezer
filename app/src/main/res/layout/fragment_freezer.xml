@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/user_fridge_linear_layout"
     tools:context=".fridge.FreezerFragment">
 
     <Button
@@ -20,6 +21,6 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFreezer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

@@ -1,14 +1,14 @@
 package com.diploma.freezer.fridge;
 
-
-import static com.diploma.freezer.MainActivity.currentFridge;
 import static com.diploma.freezer.MainActivity.userFridge;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,16 +16,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.diploma.freezer.R;
-import com.diploma.freezer.logreg.Login;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class FreezerFragment extends Fragment {
 
     RecyclerView recyclerView;
     FreezerItemsAdapter freezerItemsAdapter;
     Button addItemButton;
+    LinearLayout linearLayout;
 
 
     @SuppressLint({"NotifyDataSetChanged", "MissingInflatedId"})
@@ -42,7 +43,7 @@ public class FreezerFragment extends Fragment {
             }
         });
 
-
+        linearLayout = inflatedView.findViewById(R.id.user_fridge_linear_layout);
 
         recyclerView = inflatedView.findViewById(R.id.recyclerViewFreezer);
         recyclerView.setHasFixedSize(true);
@@ -51,9 +52,26 @@ public class FreezerFragment extends Fragment {
         freezerItemsAdapter = new FreezerItemsAdapter(inflatedView.getContext(), userFridge);//Тут передаем адаптер для юзера!
         recyclerView.setAdapter(freezerItemsAdapter);
 
+        ItemTouchHelper helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(recyclerView);
 
         return inflatedView;
     }
+    ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @SuppressLint("NotifyDataSetChanged")
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            Toast toast = Toast.makeText(getContext(), userFridge.get(viewHolder.getAdapterPosition()).getFoodName() + " удален", Toast.LENGTH_SHORT);
+            toast.show();
+            userFridge.remove(viewHolder.getAdapterPosition());
+            freezerItemsAdapter.notifyDataSetChanged();
+        }
+    };
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
