@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -98,9 +99,10 @@ public class Register extends AppCompatActivity {
                                 if (task.isSuccessful()) {
 
                                     CollectionReference users = base.collection("users");
-                                    Map<String, String> map = new HashMap<>();
+                                    Map<String, Object> map = new HashMap<>();
                                     map.put("name", name);
                                     map.put("admin",admin);
+                                    map.put("foodList", new ArrayList<>());
                                     users.document(email).set(map);
                                     //users.document().set(map.get("admin"));
 

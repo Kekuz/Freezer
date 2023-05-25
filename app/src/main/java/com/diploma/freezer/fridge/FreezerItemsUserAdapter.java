@@ -1,5 +1,6 @@
 package com.diploma.freezer.fridge;
 
+import static com.diploma.freezer.MainActivity.currentFirebaseUser;
 import static com.diploma.freezer.MainActivity.userFridge;
 
 import android.content.Context;
@@ -11,6 +12,8 @@ import androidx.annotation.NonNull;
 
 import com.diploma.freezer.R;
 import com.squareup.picasso.Picasso;
+
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 
@@ -35,9 +38,16 @@ public class FreezerItemsUserAdapter extends FreezerItemsAdapter{
             @Override
             public void onClick(View view) {
                 Toast toast;
-                if (!userFridge.contains(freezerItem)){
+                ArrayList<String> res = new ArrayList<>();
+                for (FreezerItem f: userFridge) {
+                    res.add(f.getFoodName());
+                }
+                //if (!userFridge.contains(freezerItem)){
+                if (!res.contains(freezerItem.getFoodName())){
                     toast = Toast.makeText(holder.itemView.getContext(), freezerItem.getFoodName() + " " + context.getResources().getString(R.string.added_to_fridge), Toast.LENGTH_SHORT);
                     userFridge.add(freezerItem);
+                    currentFirebaseUser.saveProductListFirebase();
+
                 }else{
                     toast = Toast.makeText(holder.itemView.getContext(), freezerItem.getFoodName() + " " + context.getResources().getString(R.string.already_exists), Toast.LENGTH_SHORT);
                 }

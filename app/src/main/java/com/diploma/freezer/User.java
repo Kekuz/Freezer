@@ -3,6 +3,7 @@ package com.diploma.freezer;
 import static android.content.ContentValues.TAG;
 
 import static com.diploma.freezer.MainActivity.currentFirebaseUser;
+import static com.diploma.freezer.MainActivity.userFridge;
 import static com.diploma.freezer.recipes.RecipesFragment.adminSearchView;
 
 import android.annotation.SuppressLint;
@@ -11,6 +12,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.diploma.freezer.fridge.FreezerItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,11 +20,17 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class User {
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
     private String email, name, admin;
+    private ArrayList<String> foodList;
     private FirebaseFirestore firebaseFirestore;
     private DocumentReference usersInfoReference;
     User(){
@@ -40,9 +48,15 @@ public class User {
                     if (document.exists()) {
                         name = document.getData().get("name").toString();
                         admin = document.getData().get("admin").toString();
+                        foodList = (ArrayList<String>) document.getData().get("foodList");
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         Log.d(TAG, "Admin data: " + admin);
+                        Log.d(TAG, "foodList data: " + foodList.toString());
                         if (currentFirebaseUser.isAdmin()) adminSearchView.setVisibility(View.VISIBLE);
+                        if(foodList!=null)
+                            for(String s : foodList)
+                                userFridge.add(new FreezerItem(s));
+                        //recipesItemAdapter.notifyDataSetChanged();
 
                     } else {
                         Log.d(TAG, "No such document");
@@ -65,9 +79,34 @@ public class User {
         //return true;
     }
 
+    public ArrayList<FreezerItem> getFoodList() {
+        ArrayList<FreezerItem> res = new ArrayList<>();
+        for (String x : foodList) {
+            res.add(new FreezerItem(x,""));
+        }
+        return res;
+    }
+    public void saveProductListFirebase(){
 
+
+        ArrayList<String> userStringFridge = new ArrayList<>();
+        for (FreezerItem x : userFridge) {
+            userStringFridge.add(x.getFoodName());
+        }
+
+        Map<String, Object> info = new HashMap<>();
+        info.put("foodList", userStringFridge);
+
+        firebaseFirestore.collection("users").document(email)
+                .set(info, SetOptions.merge())
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "Products successfully saved:" + userStringFridge.toString()))
+                .addOnFailureListener(e -> Log.w(TAG, "Error saving products", e));
+    }
 
     public FirebaseUser getFirebaseUser() {
         return firebaseUser;
+    }
+    public FirebaseFirestore getFirebaseFirestore() {
+        return firebaseFirestore;
     }
 }

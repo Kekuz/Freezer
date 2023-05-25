@@ -1,5 +1,6 @@
 package com.diploma.freezer.fridge;
 
+import static com.diploma.freezer.MainActivity.currentFirebaseUser;
 import static com.diploma.freezer.MainActivity.userFridge;
 
 import android.annotation.SuppressLint;
@@ -69,6 +70,9 @@ public class FreezerFragment extends Fragment {
             Toast toast = Toast.makeText(getContext(), userFridge.get(viewHolder.getAdapterPosition()).getFoodName() + " " + getContext().getResources().getString(R.string.product_deleted), Toast.LENGTH_SHORT);
             toast.show();
             userFridge.remove(viewHolder.getAdapterPosition());
+
+            currentFirebaseUser.saveProductListFirebase();
+
             freezerItemsAdapter.notifyDataSetChanged();
         }
     };
