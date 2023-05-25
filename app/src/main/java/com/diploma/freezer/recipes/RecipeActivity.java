@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,17 +13,25 @@ import com.squareup.picasso.Picasso;
 
 public class RecipeActivity extends AppCompatActivity {
     TextView captionView, descriptionView, productsTextView;
-    ImageView imageView;
+    ImageView imageView, imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-        captionView = findViewById(R.id.captionTextView);
+        captionView = findViewById(R.id.recipeName);
         descriptionView = findViewById(R.id.descriptionTextView);
         imageView = findViewById(R.id.recipeImageView);
         productsTextView = findViewById(R.id.productsTextView);
+        imageButton = findViewById(R.id.back_icon);
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
         descriptionView.setText(Html.fromHtml(getIntent().getExtras().getString("description"), Html.FROM_HTML_MODE_COMPACT));

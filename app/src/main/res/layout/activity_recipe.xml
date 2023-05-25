@@ -6,9 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".recipes.RecipeActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <include layout="@layout/recipe_tool_bar"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -23,17 +31,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-    <TextView
-        android:id="@+id/captionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/recipe_name"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipeImageView" />
+
 
         <TextView
             android:id="@+id/articleTextView"
@@ -45,7 +43,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/captionTextView"/>
+            app:layout_constraintTop_toBottomOf="@+id/recipeImageView"/>
 
         <TextView
             android:id="@+id/productsTextView"
@@ -96,5 +94,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
