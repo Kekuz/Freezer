@@ -1,8 +1,10 @@
 package com.diploma.freezer.recipes;
 
+import static com.diploma.freezer.MainActivity.currentFirebaseUser;
 import static com.diploma.freezer.MainActivity.currentRecipes;
 import static com.diploma.freezer.MainActivity.userFridge;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import androidx.appcompat.widget.SearchView;
 
 import com.diploma.freezer.R;
 import com.diploma.freezer.fridge.FreezerItem;
@@ -24,10 +27,12 @@ import java.util.ArrayList;
 
 public class RecipesFragment extends Fragment {
     GridView gridView;
+    public static SearchView adminSearchView;
     public static RecipesItemAdapter recipesItemAdapter;
 
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,6 +40,26 @@ public class RecipesFragment extends Fragment {
 
 
         gridView = inflatedView.findViewById(R.id.gridView);
+
+        adminSearchView = inflatedView.findViewById(R.id.admin_search_view);
+        adminSearchView.onActionViewExpanded();
+        adminSearchView.setIconified(false);
+        adminSearchView.clearFocus();
+
+        if (currentFirebaseUser.isAdmin()) adminSearchView.setVisibility(View.VISIBLE);
+
+        adminSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchFilter(newText);
+                return true;
+            }
+        });
 
         //recipesItemAdapter = new RecipesItemAdapter(inflatedView.getContext(), currentRecipes.getRecipeItems());
         ArrayList<RecipeItem> filtered = FilteredRecipes();
@@ -87,5 +112,13 @@ public class RecipesFragment extends Fragment {
         return (res.isEmpty() && userIng.isEmpty()) ? allRec : res;
         //return res;
     }
-
+    private void searchFilter(String newText) {
+        ArrayList<RecipeItem> filteredList = new ArrayList<>();
+        for(RecipeItem item : currentRecipes.getRecipeItems()){
+            if(item.getCaption().toLowerCase().contains(newText.toLowerCase())){
+                filteredList.add(item);
+            }
+        }
+        recipesItemAdapter.filterList(filteredList);
+    }
 }

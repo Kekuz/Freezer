@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class RecipesItemAdapter extends BaseAdapter {
 
     private final Context context;
-    private final ArrayList<RecipeItem> recipeItems;
+    private ArrayList<RecipeItem> recipeItems;
     LayoutInflater layoutInflater;
 
     public RecipesItemAdapter(Context context, ArrayList<RecipeItem> recipeItems) {
@@ -37,6 +37,11 @@ public class RecipesItemAdapter extends BaseAdapter {
     @Override
     public long getItemId(int i) {
         return 0;
+    }
+
+    public void filterList(ArrayList<RecipeItem> filteredList){
+        recipeItems = filteredList;
+        notifyDataSetChanged();
     }
 
     @Override

@@ -69,10 +69,11 @@ public class Register extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email, password, name;
+                String email, password, name, admin;
                 email = String.valueOf(editTextEmail.getText()) ;
                 password = String.valueOf(editTextPassword.getText());
                 name = String.valueOf(editTextName.getText());
+                admin = "0";//Админский доступ
 
                 if (TextUtils.isEmpty(email)){
                     Toast.makeText(Register.this, Register.this.getString(R.string.enter_email), Toast.LENGTH_SHORT).show();
@@ -99,7 +100,9 @@ public class Register extends AppCompatActivity {
                                     CollectionReference users = base.collection("users");
                                     Map<String, String> map = new HashMap<>();
                                     map.put("name", name);
+                                    map.put("admin",admin);
                                     users.document(email).set(map);
+                                    //users.document().set(map.get("admin"));
 
                                     Toast.makeText(Register.this, Register.this.getString(R.string.account_created),
                                             Toast.LENGTH_SHORT).show();
