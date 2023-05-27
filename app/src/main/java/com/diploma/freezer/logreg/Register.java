@@ -103,6 +103,7 @@ public class Register extends AppCompatActivity {
                                     map.put("name", name);
                                     map.put("admin",admin);
                                     map.put("foodList", new ArrayList<>());
+                                    map.put("userRating", new HashMap<>());
                                     users.document(email).set(map);
                                     //users.document().set(map.get("admin"));
 

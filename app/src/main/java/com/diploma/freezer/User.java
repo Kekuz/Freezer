@@ -31,6 +31,7 @@ public class User {
     private FirebaseUser firebaseUser;
     private String email, name, admin;
     private ArrayList<String> foodList;
+    private Map<String,String> userRating;
     private FirebaseFirestore firebaseFirestore;
     private DocumentReference usersInfoReference;
     User(){
@@ -49,9 +50,11 @@ public class User {
                         name = document.getData().get("name").toString();
                         admin = document.getData().get("admin").toString();
                         foodList = (ArrayList<String>) document.getData().get("foodList");
+                        userRating = (Map<String, String>) document.getData().get("userRating");
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         Log.d(TAG, "Admin data: " + admin);
                         Log.d(TAG, "foodList data: " + foodList.toString());
+                        Log.d(TAG, "userRate data: " + userRating.toString());
                         if (currentFirebaseUser.isAdmin()) adminSearchView.setVisibility(View.VISIBLE);
                         if(foodList!=null)
                             for(String s : foodList)
@@ -76,7 +79,6 @@ public class User {
         Log.d(TAG, "Admin data: " + admin);
         if (admin == null) return false;
         else return admin.equals("1");
-        //return true;
     }
 
     public ArrayList<FreezerItem> getFoodList() {
@@ -87,7 +89,6 @@ public class User {
         return res;
     }
     public void saveProductListFirebase(){
-
 
         ArrayList<String> userStringFridge = new ArrayList<>();
         for (FreezerItem x : userFridge) {
@@ -103,9 +104,38 @@ public class User {
                 .addOnFailureListener(e -> Log.w(TAG, "Error saving products", e));
     }
 
+    public void rating(String name, float r){
+
+        Map<String, Object> info = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
+        map.put(name, String.valueOf(r));
+        info.put("userRating", map);
+
+        firebaseFirestore.collection("users").document(email)
+                .set(info, SetOptions.merge())
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "Rating successfully saved:" + map.toString()))
+                .addOnFailureListener(e -> Log.w(TAG, "Error saving rating", e));
+    }
+
+    public float getRating(String name){
+
+        float rating;
+        try {
+           rating = Float.parseFloat(userRating.get(name));
+        }catch (Exception e){
+            rating = 0.0f;
+        }
+        return rating;
+    }
+
     public FirebaseUser getFirebaseUser() {
         return firebaseUser;
     }
+
+    public Map<String, String> getUserRating(){
+        return userRating;
+    }
+
     public FirebaseFirestore getFirebaseFirestore() {
         return firebaseFirestore;
     }
