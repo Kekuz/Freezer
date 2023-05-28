@@ -19,7 +19,7 @@ import java.util.List;
 
 public class AllFreezerItemsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    FreezerItemsAdapter freezerItemsAdapter;
+    FreezerItemsUserAdapter freezerItemsUserAdapter;
     SearchView searchView;
 
     @SuppressLint("MissingInflatedId")
@@ -37,8 +37,8 @@ public class AllFreezerItemsActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        freezerItemsAdapter = new FreezerItemsUserAdapter(this, currentFridge.getFreezerItems());//тут передаем общий адаптер
-        recyclerView.setAdapter(freezerItemsAdapter);
+        freezerItemsUserAdapter = new FreezerItemsUserAdapter(this, currentFridge.getFreezerItems());//тут передаем общий адаптер
+        recyclerView.setAdapter(freezerItemsUserAdapter);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -62,6 +62,6 @@ public class AllFreezerItemsActivity extends AppCompatActivity {
                 filteredList.add(item);
             }
         }
-        freezerItemsAdapter.filterList(filteredList);
+        freezerItemsUserAdapter.filterList(filteredList);
     }
 }

@@ -2,8 +2,6 @@ package com.diploma.freezer.recipes;
 
 import static com.diploma.freezer.MainActivity.currentFirebaseUser;
 import static com.diploma.freezer.MainActivity.currentRecipes;
-import static com.diploma.freezer.MainActivity.userFridge;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -91,7 +89,7 @@ public class RecipesFragment extends Fragment {
         ArrayList<RecipeItem> allRec = currentRecipes.getRecipeItems(); //все рецепты
 
         ArrayList<String> userIng = new ArrayList<>();//еда в холодильнике
-        for (FreezerItem x :userFridge) {
+        for (FreezerItem x :currentFirebaseUser.getUserFridge()) {
             userIng.add(x.getFoodName());
         }
 

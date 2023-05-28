@@ -46,6 +46,7 @@ public class FreezerItemsAdapter extends RecyclerView.Adapter<FreezerItemsAdapte
         }catch (Exception e){
             holder.image.setImageResource(R.drawable.ic_null_fastfood_24);
         }
+        //notifyDataSetChanged();
 
     }
 

@@ -3,7 +3,6 @@ package com.diploma.freezer;
 import static android.content.ContentValues.TAG;
 
 import static com.diploma.freezer.MainActivity.currentFirebaseUser;
-import static com.diploma.freezer.MainActivity.userFridge;
 import static com.diploma.freezer.recipes.RecipesFragment.adminSearchView;
 
 import android.annotation.SuppressLint;
@@ -34,11 +33,13 @@ public class User {
     private Map<String,String> userRating;
     private FirebaseFirestore firebaseFirestore;
     private DocumentReference usersInfoReference;
+    private ArrayList<FreezerItem> userFridge;//Продукты в холодильнике у пользователя
     User(){
         this.mAuth = FirebaseAuth.getInstance();
         this.firebaseUser = mAuth.getCurrentUser();
         this.email = firebaseUser.getEmail();
         this.firebaseFirestore = FirebaseFirestore.getInstance();
+        userFridge = new ArrayList<>();
         usersInfoReference = firebaseFirestore.collection("users").document(email);
         usersInfoReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @SuppressLint("SetTextI18n")
@@ -56,10 +57,13 @@ public class User {
                         Log.d(TAG, "foodList data: " + foodList.toString());
                         Log.d(TAG, "userRate data: " + userRating.toString());
                         if (currentFirebaseUser.isAdmin()) adminSearchView.setVisibility(View.VISIBLE);
+
                         if(foodList!=null)
                             for(String s : foodList)
-                                userFridge.add(new FreezerItem(s));
-                        //recipesItemAdapter.notifyDataSetChanged();
+                                userFridge.add(newFridgeItem(s));
+                        MainActivity.progressBar.setVisibility(View.GONE);
+                        //RecipesFragment.recipesItemAdapter.notifyDataSetChanged();
+                        //FreezerFragment.freezerItemsAdapter.notifyDataSetChanged();
 
                     } else {
                         Log.d(TAG, "No such document");
@@ -69,6 +73,38 @@ public class User {
                 }
             }
         });
+    }
+
+    private FreezerItem newFridgeItem(String foodName) {//Конструктор для того чтобы восстанавливать список из базы
+
+        FreezerItem res = new FreezerItem();
+        firebaseFirestore.collection("ingredients").document(foodName)
+                .get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            res.setFoodName(foodName);
+                            String image = document.getData().get("image").toString();
+                            res.setImage(image);
+                            Log.d(TAG, "Document: " + image);
+                            //MainActivity.progressBar.setVisibility(View.GONE);
+                            //FreezerFragment.freezerItemsAdapter.notifyDataSetChanged();
+                            //RecipesFragment.recipesItemAdapter.notifyDataSetChanged();
+
+                        } else {
+                            res.setFoodName(foodName);
+                            res.setImage("");
+                            Log.d(TAG, "No such document");
+                        }
+                    } else {
+                        Log.d(TAG, "get failed with ", task.getException());
+                    }
+                });
+        return res;
+    }
+
+    public ArrayList<FreezerItem> getUserFridge() {
+        return userFridge;
     }
 
     public String getName() {
@@ -81,13 +117,6 @@ public class User {
         else return admin.equals("1");
     }
 
-    public ArrayList<FreezerItem> getFoodList() {
-        ArrayList<FreezerItem> res = new ArrayList<>();
-        for (String x : foodList) {
-            res.add(new FreezerItem(x,""));
-        }
-        return res;
-    }
     public void saveProductListFirebase(){
 
         ArrayList<String> userStringFridge = new ArrayList<>();

@@ -1,7 +1,6 @@
 package com.diploma.freezer.fridge;
 
 import static com.diploma.freezer.MainActivity.currentFirebaseUser;
-import static com.diploma.freezer.MainActivity.userFridge;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -50,7 +49,7 @@ public class FreezerFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(inflatedView.getContext()));
 
-        freezerItemsAdapter = new FreezerItemsAdapter(inflatedView.getContext(), userFridge);//Тут передаем адаптер для юзера!
+        freezerItemsAdapter = new FreezerItemsAdapter(inflatedView.getContext(), currentFirebaseUser.getUserFridge());//Тут передаем адаптер для юзера!
         recyclerView.setAdapter(freezerItemsAdapter);
 
         ItemTouchHelper helper = new ItemTouchHelper(callback);
@@ -67,9 +66,9 @@ public class FreezerFragment extends Fragment {
         @SuppressLint("NotifyDataSetChanged")
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            Toast toast = Toast.makeText(getContext(), userFridge.get(viewHolder.getAdapterPosition()).getFoodName() + " " + getContext().getResources().getString(R.string.product_deleted), Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getContext(), currentFirebaseUser.getUserFridge().get(viewHolder.getAdapterPosition()).getFoodName() + " " + getContext().getResources().getString(R.string.product_deleted), Toast.LENGTH_SHORT);
             toast.show();
-            userFridge.remove(viewHolder.getAdapterPosition());
+            currentFirebaseUser.getUserFridge().remove(viewHolder.getAdapterPosition());
 
             currentFirebaseUser.saveProductListFirebase();
 
