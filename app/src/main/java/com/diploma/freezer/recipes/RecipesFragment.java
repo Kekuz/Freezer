@@ -82,7 +82,7 @@ public class RecipesFragment extends Fragment {
         return inflatedView;
     }
 
-    private ArrayList<RecipeItem> FilteredRecipes(){
+    public ArrayList<RecipeItem> FilteredRecipes(){
 
         ArrayList<RecipeItem> res = new ArrayList<>();
 

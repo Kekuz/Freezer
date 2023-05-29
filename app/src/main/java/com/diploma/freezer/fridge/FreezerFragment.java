@@ -24,7 +24,7 @@ import com.diploma.freezer.R;
 public class FreezerFragment extends Fragment {
 
     RecyclerView recyclerView;
-    FreezerItemsAdapter freezerItemsAdapter;
+    public static FreezerItemsAdapter freezerItemsAdapter;
     Button addItemButton;
     LinearLayout linearLayout;
 

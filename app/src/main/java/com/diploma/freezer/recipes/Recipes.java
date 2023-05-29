@@ -51,8 +51,8 @@ public class Recipes {
                             if(dc.getType() == DocumentChange.Type.ADDED){
                                 recipeItems.add(dc.getDocument().toObject(RecipeItem.class));
                                 Log.d(TAG, "Recipe data: " + recipeItems);
-                                MainActivity.progressBar.setVisibility(View.GONE);
-                                RecipesFragment.recipesItemAdapter.notifyDataSetChanged();
+                                ///MainActivity.progressBar.setVisibility(View.GONE);
+                                //RecipesFragment.recipesItemAdapter.notifyDataSetChanged();
                             }
                         }
 

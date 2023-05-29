@@ -6,12 +6,17 @@ import static com.diploma.freezer.MainActivity.currentFirebaseUser;
 import static com.diploma.freezer.recipes.RecipesFragment.adminSearchView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.diploma.freezer.fridge.FreezerFragment;
 import com.diploma.freezer.fridge.FreezerItem;
+import com.diploma.freezer.fridge.FreezerItemsUserAdapter;
+import com.diploma.freezer.recipes.RecipesFragment;
+import com.diploma.freezer.recipes.RecipesItemAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,8 +67,8 @@ public class User {
                             for(String s : foodList)
                                 userFridge.add(newFridgeItem(s));
                         MainActivity.progressBar.setVisibility(View.GONE);
-                        //RecipesFragment.recipesItemAdapter.notifyDataSetChanged();
-                        //FreezerFragment.freezerItemsAdapter.notifyDataSetChanged();
+                        if (RecipesFragment.recipesItemAdapter != null)
+                            RecipesFragment.recipesItemAdapter.notifyDataSetChanged();
 
                     } else {
                         Log.d(TAG, "No such document");
@@ -87,9 +92,8 @@ public class User {
                             String image = document.getData().get("image").toString();
                             res.setImage(image);
                             Log.d(TAG, "Document: " + image);
-                            //MainActivity.progressBar.setVisibility(View.GONE);
-                            //FreezerFragment.freezerItemsAdapter.notifyDataSetChanged();
-                            //RecipesFragment.recipesItemAdapter.notifyDataSetChanged();
+                            if (FreezerFragment.freezerItemsAdapter != null)
+                                FreezerFragment.freezerItemsAdapter.notifyDataSetChanged();
 
                         } else {
                             res.setFoodName(foodName);
