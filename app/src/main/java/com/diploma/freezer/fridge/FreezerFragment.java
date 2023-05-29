@@ -25,7 +25,7 @@ public class FreezerFragment extends Fragment {
 
     RecyclerView recyclerView;
     public static FreezerItemsAdapter freezerItemsAdapter;
-    Button addItemButton;
+    Button addItemButton, clearButton;
     LinearLayout linearLayout;
 
 
@@ -35,11 +35,23 @@ public class FreezerFragment extends Fragment {
                              Bundle savedInstanceState) {
         View inflatedView = inflater.inflate(R.layout.fragment_freezer, container, false);
         addItemButton = inflatedView.findViewById(R.id.addItemButton);
+        clearButton = inflatedView.findViewById(R.id.clearButton);
         addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(inflatedView.getContext(), AllFreezerItemsActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (freezerItemsAdapter != null && currentFirebaseUser.getUserFridge().size() != 0){
+                    currentFirebaseUser.clearProductListFirebase();
+                    freezerItemsAdapter.notifyDataSetChanged();
+                }
+
             }
         });
 

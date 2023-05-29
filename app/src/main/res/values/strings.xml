@@ -31,4 +31,5 @@
     <string name="product_list">*Продукты\n*Продукты</string>
     <string name="instruction">Инструкция:</string>
     <string name="description">Описание</string>
+    <string name="clear">Отчистить</string>
 </resources>

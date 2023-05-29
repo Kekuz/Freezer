@@ -137,6 +137,19 @@ public class User {
                 .addOnFailureListener(e -> Log.w(TAG, "Error saving products", e));
     }
 
+    public void clearProductListFirebase(){
+
+        userFridge.clear();
+
+        Map<String, Object> info = new HashMap<>();
+        info.put("foodList", new ArrayList<>());
+
+        firebaseFirestore.collection("users").document(email)
+                .set(info, SetOptions.merge())
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "Products successfully cleared:"))
+                .addOnFailureListener(e -> Log.w(TAG, "Error saving products", e));
+    }
+
     public void rating(String name, float r){
 
         Map<String, Object> info = new HashMap<>();
