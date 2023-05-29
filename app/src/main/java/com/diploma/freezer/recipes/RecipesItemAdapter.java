@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+
 import com.diploma.freezer.R;
 import com.squareup.picasso.Picasso;
 
@@ -18,6 +20,7 @@ public class RecipesItemAdapter extends BaseAdapter {
     private final Context context;
     private ArrayList<RecipeItem> recipeItems;
     LayoutInflater layoutInflater;
+    CardView cardView;
 
     public RecipesItemAdapter(Context context, ArrayList<RecipeItem> recipeItems) {
         this.context = context;
@@ -54,6 +57,13 @@ public class RecipesItemAdapter extends BaseAdapter {
         }
         ImageView gridImage = view.findViewById(R.id.gridImage);
         TextView gridCaption = view.findViewById(R.id.gridCaption);
+        cardView = view.findViewById(R.id.colorful_cardView);
+
+        if (RecipesFragment.missing1Color.contains(recipeItems.get(i).getCaption()))
+            cardView.setCardBackgroundColor(view.getResources().getColor(R.color.missing_1));
+        else if (RecipesFragment.missing2Color.contains(recipeItems.get(i).getCaption()))
+            cardView.setCardBackgroundColor(view.getResources().getColor(R.color.missing_2));
+        else cardView.setCardBackgroundColor(view.getResources().getColor(R.color.white));
 
         try{
             Picasso.get().load(recipeItems.get(i).getImage()).into(gridImage);

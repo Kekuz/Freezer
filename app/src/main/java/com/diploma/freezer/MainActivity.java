@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         progressBar = findViewById(R.id.progressBarDB);
 
-        binding.bottomNavView.getMenu().findItem(R.id.navigation_recipes).setChecked(true);// выбираем рецепты по умолчанию
-        replaceFragment(new RecipesFragment());
+        binding.bottomNavView.getMenu().findItem(R.id.navigation_freezer).setChecked(true);// выбираем рецепты по умолчанию
+        replaceFragment(new FreezerFragment());
 
         currentFirebaseUser = new User();
 

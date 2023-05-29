@@ -9,13 +9,21 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/colorful_cardView"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         app:cardElevation="10dp"
-        app:cardCornerRadius="20dp">
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/white">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="20dp"
+            android:layout_margin="5dp">
 
         <ImageView
             android:layout_width="match_parent"
@@ -23,8 +31,11 @@
             android:id="@+id/gridImage"
             android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/avatars" />
+
+        </androidx.cardview.widget.CardView>
         
     </androidx.cardview.widget.CardView>
+
 
     <TextView
         android:id="@+id/gridCaption"

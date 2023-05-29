@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
+
 import androidx.appcompat.widget.SearchView;
 
 import com.diploma.freezer.R;
@@ -27,6 +29,10 @@ public class RecipesFragment extends Fragment {
     GridView gridView;
     public static SearchView adminSearchView;
     public static RecipesItemAdapter recipesItemAdapter;
+    public static ArrayList<String> missing1Color;
+    public static ArrayList<String> missing2Color;
+
+    TextView textView;
 
 
 
@@ -35,9 +41,12 @@ public class RecipesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View inflatedView = inflater.inflate(R.layout.fragment_recipes, container, false);
-
+        textView = inflatedView.findViewById(R.id.back_text_recipes);
 
         gridView = inflatedView.findViewById(R.id.gridView);
+
+        missing1Color = new ArrayList<>();
+        missing2Color = new ArrayList<>();
 
         adminSearchView = inflatedView.findViewById(R.id.admin_search_view);
         adminSearchView.onActionViewExpanded();
@@ -85,6 +94,8 @@ public class RecipesFragment extends Fragment {
     public ArrayList<RecipeItem> FilteredRecipes(){
 
         ArrayList<RecipeItem> res = new ArrayList<>();
+        ArrayList<RecipeItem> res1 = new ArrayList<>();
+        ArrayList<RecipeItem> res2 = new ArrayList<>();
 
         ArrayList<RecipeItem> allRec = currentRecipes.getRecipeItems(); //все рецепты
 
@@ -104,12 +115,28 @@ public class RecipesFragment extends Fragment {
                     }
                 }
             }
-            if(recipeIng.size() == count) res.add(x);// Если количество совпадений равно количеству ингридиентов в рецепте, то добавляем
+            if(recipeIng.size() == count){
+                res.add(x);// Если количество совпадений равно количеству ингридиентов в рецепте, то добавляем
+            }
+            else if (recipeIng.size() - 1 == count && recipeIng.size() != 1){
+                res1.add(x);
+                missing1Color.add(x.getCaption());
+            }
+            else if (recipeIng.size() - 2 == count && recipeIng.size() != 2 && recipeIng.size() != 1){
+                res2.add(x);
+                missing2Color.add(x.getCaption());
+            }
+
             Log.i("recipeIng: ", x.getIngredients().toString());
         }
-        return (res.isEmpty() && userIng.isEmpty()) ? allRec : res;
-        //return res;
+        res.addAll(res1);
+        res.addAll(res2);
+
+        //return (res.isEmpty() && userIng.isEmpty()) ? allRec : res;
+        return res;
     }
+
+
     private void searchFilter(String newText) {
         ArrayList<RecipeItem> filteredList = new ArrayList<>();
         for(RecipeItem item : currentRecipes.getRecipeItems()){
