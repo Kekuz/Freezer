@@ -43,6 +43,7 @@ public class User {
         this.mAuth = FirebaseAuth.getInstance();
         this.firebaseUser = mAuth.getCurrentUser();
         this.email = firebaseUser.getEmail();
+        Log.d("Email:", email);
         this.firebaseFirestore = FirebaseFirestore.getInstance();
         userFridge = new ArrayList<>();
         usersInfoReference = firebaseFirestore.collection("users").document(email);
@@ -58,10 +59,11 @@ public class User {
                         foodList = (ArrayList<String>) document.getData().get("foodList");
                         userRating = (Map<String, String>) document.getData().get("userRating");
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        Log.d(TAG, "Name data:" + name);
                         Log.d(TAG, "Admin data: " + admin);
                         Log.d(TAG, "foodList data: " + foodList.toString());
                         Log.d(TAG, "userRate data: " + userRating.toString());
-                        if (currentFirebaseUser.isAdmin()) adminSearchView.setVisibility(View.VISIBLE);
+                        if (currentFirebaseUser.isAdmin() && adminSearchView != null) adminSearchView.setVisibility(View.VISIBLE);
 
                         if(foodList!=null)
                             for(String s : foodList)

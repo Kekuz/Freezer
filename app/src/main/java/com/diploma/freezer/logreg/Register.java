@@ -104,7 +104,7 @@ public class Register extends AppCompatActivity {
                                     map.put("admin",admin);
                                     map.put("foodList", new ArrayList<>());
                                     map.put("userRating", new HashMap<>());
-                                    users.document(email).set(map);
+                                    users.document(email.toLowerCase()).set(map);
                                     //users.document().set(map.get("admin"));
 
                                     Toast.makeText(Register.this, Register.this.getString(R.string.account_created),
