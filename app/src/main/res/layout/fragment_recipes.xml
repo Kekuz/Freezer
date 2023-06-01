@@ -26,9 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:id="@+id/admin_search_view"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         app:queryHint="@string/enter_product"
+        android:background="?attr/colorOnPrimary"
         android:visibility="gone">
 
     </androidx.appcompat.widget.SearchView>
