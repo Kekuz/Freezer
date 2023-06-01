@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/purple">
+    android:background="?attr/colorPrimary">
     <RelativeLayout
         android:padding="16dp"
         android:layout_width="match_parent"
@@ -22,9 +22,19 @@
             android:text="@string/recipe_name"
             android:layout_marginStart="16dp"
             android:layout_toEndOf="@id/back_icon"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="24sp"
             android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/like_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="0dp"
+            android:padding="10dp"
+            android:src="@drawable/favorite_30" />
     </RelativeLayout>
 
 </RelativeLayout>

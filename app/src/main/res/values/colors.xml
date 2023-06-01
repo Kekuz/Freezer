@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="selective_yellow">#FFBA08</color>
+    <color name="princeton_orange">#F48C06</color>
+    <color name="penn_red">#9D0208</color>
+    <color name="rosewood">#6A040F</color>
+    <color name="black">#03071E</color>
+    <color name="bottom_nav_indicator">@null</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="purple">#6750A4</color>
-    <color name="missing_1">#FF9800</color>
-    <color name="missing_2">#FF4800</color>
+
+    <color name="orange_web">#FFA400</color>
+    <color name="engineering_orange">#D00000</color>
+    <color name="persimmon">#E85D04</color>
+    <color name="grey">#424242</color>
+
 
 </resources>

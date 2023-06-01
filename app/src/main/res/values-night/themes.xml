@@ -1,7 +1,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Freezer" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Base.Theme.Freezer" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/orange_web</item>
+        <item name="colorPrimaryVariant">@color/persimmon</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/penn_red</item>
+        <item name="colorSecondaryVariant">@color/engineering_orange</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/grey</item>
+        <!-- Навигейшн бар -->
+        <item name="android:navigationBarColor">@color/grey</item>
+        <!-- Сплэш скрин -->
+        <item name="android:windowSplashScreenBackground" tools:targetApi="s">@color/grey</item>
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@drawable/splash_logo_dark</item>
+
     </style>
 </resources>

@@ -67,4 +67,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        binding.bottomNavView.getMenu().findItem(R.id.navigation_freezer).setChecked(true);
+    }
 }

@@ -1,6 +1,9 @@
 package com.diploma.freezer.recipes;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.support.annotation.ColorInt;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,11 +62,20 @@ public class RecipesItemAdapter extends BaseAdapter {
         TextView gridCaption = view.findViewById(R.id.gridCaption);
         cardView = view.findViewById(R.id.colorful_cardView);
 
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue, true);
+        @ColorInt int colorPrimary = typedValue.data;
+        context.getTheme().resolveAttribute(com.google.android.material.R.attr.colorSecondary, typedValue, true);
+        @ColorInt int colorSecondary = typedValue.data;
+        context.getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnPrimary, typedValue, true);
+        @ColorInt int colorOnPrimary = typedValue.data;
+
         if (RecipesFragment.missing1Color.contains(recipeItems.get(i).getCaption()))
-            cardView.setCardBackgroundColor(view.getResources().getColor(R.color.missing_1));
+            cardView.setCardBackgroundColor(colorPrimary);
         else if (RecipesFragment.missing2Color.contains(recipeItems.get(i).getCaption()))
-            cardView.setCardBackgroundColor(view.getResources().getColor(R.color.missing_2));
-        else cardView.setCardBackgroundColor(view.getResources().getColor(R.color.white));
+            cardView.setCardBackgroundColor(colorSecondary);
+        else
+            cardView.setCardBackgroundColor(colorOnPrimary);
 
         try{
             Picasso.get().load(recipeItems.get(i).getImage()).into(gridImage);
