@@ -31,6 +31,8 @@ public class RecipesFragment extends Fragment {
     public static RecipesItemAdapter recipesItemAdapter;
     public static ArrayList<String> missing1Color;
     public static ArrayList<String> missing2Color;
+    private ArrayList<RecipeItem> SearchFilteredList;
+    ArrayList<RecipeItem> filtered;
 
     TextView textView;
 
@@ -69,22 +71,22 @@ public class RecipesFragment extends Fragment {
         });
 
         //recipesItemAdapter = new RecipesItemAdapter(inflatedView.getContext(), currentRecipes.getRecipeItems());
-        ArrayList<RecipeItem> filtered = FilteredRecipes();
+        filtered = FilteredRecipes();
         recipesItemAdapter = new RecipesItemAdapter(inflatedView.getContext(), filtered);
         gridView.setAdapter(recipesItemAdapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.i("GridViewInfo: ", "position " + i + " "+ filtered.get(i));
+                Log.i("GridViewInfo: ", "position " + i + " "+ SearchFilteredList.get(i));
 
                 Intent intent = new Intent(inflatedView.getContext(), RecipeActivity.class);
 
-                intent.putExtra("caption", filtered.get(i).getCaption());
-                intent.putExtra("image", filtered.get(i).getImage());
-                intent.putExtra("description", filtered.get(i).getDescription());
-                intent.putExtra("ingredients",filtered.get(i).getStringIngredients());
-                intent.putExtra("calories",filtered.get(i).getCalories());
+                intent.putExtra("caption", SearchFilteredList.get(i).getCaption());
+                intent.putExtra("image", SearchFilteredList.get(i).getImage());
+                intent.putExtra("description", SearchFilteredList.get(i).getDescription());
+                intent.putExtra("ingredients",SearchFilteredList.get(i).getStringIngredients());
+                intent.putExtra("calories",SearchFilteredList.get(i).getCalories());
                 startActivity(intent);
             }
         });
@@ -140,12 +142,12 @@ public class RecipesFragment extends Fragment {
 
 
     private void searchFilter(String newText) {
-        ArrayList<RecipeItem> filteredList = new ArrayList<>();
-        for(RecipeItem item : currentRecipes.getRecipeItems()){
+        SearchFilteredList = new ArrayList<>();
+        for(RecipeItem item : filtered){
             if(item.getCaption().toLowerCase().contains(newText.toLowerCase())){
-                filteredList.add(item);
+                SearchFilteredList.add(item);
             }
         }
-        recipesItemAdapter.filterList(filteredList);
+        recipesItemAdapter.filterList(SearchFilteredList);
     }
 }
