@@ -133,8 +133,9 @@ public class RecipesFragment extends Fragment {
         res.addAll(res1);
         res.addAll(res2);
 
-        //return (res.isEmpty() && userIng.isEmpty()) ? allRec : res;
-        return res;
+        if (currentFirebaseUser.isAdmin())
+            return (res.isEmpty() && userIng.isEmpty()) ? allRec : res;
+        else return res;
     }
 
 
