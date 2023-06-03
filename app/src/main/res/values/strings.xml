@@ -33,4 +33,5 @@
     <string name="description">Описание</string>
     <string name="clear">Отчистить</string>
     <string name="no_recipes">Подходящих рецептов нет :(</string>
+    <string name="calories_count">Ккал на 100г:</string>
 </resources>

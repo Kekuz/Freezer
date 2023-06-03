@@ -8,13 +8,14 @@ import java.util.stream.Collectors;
 public class RecipeItem {
     private String caption;
     private String image;
-
     private String description;
+    private String calories;
     private List<String> ingredients;
 
     public RecipeItem(){}//Тоже удалять запрещено!!!
 
-    public RecipeItem(String caption,String description, String image,List<String> ingredients) {
+    public RecipeItem(String calories, String caption, String description, String image, List<String> ingredients) {
+        this.calories = calories;
         this.caption = caption;
         this.description = description;
         this.image = image;
@@ -44,6 +45,10 @@ public class RecipeItem {
 
     public String getStringIngredients(){
         return "·" + String.join("\n·", ingredients);
+    }
+
+    public String getCalories() {
+        return calories;
     }
 
     public void setCaption(String caption) {

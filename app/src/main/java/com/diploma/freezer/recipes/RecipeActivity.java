@@ -19,7 +19,7 @@ import com.diploma.freezer.RatingItem;
 import com.squareup.picasso.Picasso;
 
 public class RecipeActivity extends AppCompatActivity {
-    TextView captionView, descriptionView, productsTextView, textViewRating;
+    TextView captionView, descriptionView, productsTextView, textViewRating, caloriesTextView;
     ImageView imageView, imageButton;
     RatingBar ratingBar;
 
@@ -36,6 +36,7 @@ public class RecipeActivity extends AppCompatActivity {
         imageButton = findViewById(R.id.back_icon);
         ratingBar = findViewById(R.id.ratingBar);
         textViewRating = findViewById(R.id.textViewRating);
+        caloriesTextView = findViewById(R.id.caloriesTextView);
 
         imageButton.setOnClickListener(view -> finish());
 
@@ -44,6 +45,7 @@ public class RecipeActivity extends AppCompatActivity {
         descriptionView.setText(Html.fromHtml(getIntent().getExtras().getString("description"), Html.FROM_HTML_MODE_COMPACT));
         captionView.setText(recipeName);
         productsTextView.setText(getIntent().getExtras().getString("ingredients"));
+        caloriesTextView.setText(RecipeActivity.this.getString(R.string.calories_count) + " " + getIntent().getExtras().getString("calories"));
 
         try {
             Picasso.get().load(getIntent().getExtras().getString("image")).into(imageView);

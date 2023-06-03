@@ -31,7 +31,17 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-
+        <TextView
+            android:id="@+id/caloriesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calories_count"
+            android:textSize="25sp"
+            android:textStyle="italic"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipeImageView"/>
 
         <TextView
             android:id="@+id/articleTextView"
@@ -43,7 +53,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recipeImageView"/>
+            app:layout_constraintTop_toBottomOf="@+id/caloriesTextView"/>
 
         <TextView
             android:id="@+id/productsTextView"

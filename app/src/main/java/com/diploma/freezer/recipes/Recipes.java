@@ -35,7 +35,7 @@ public class Recipes {
 
     private void syncData(){
 
-        db.collection("recipes").orderBy("caption", Query.Direction.ASCENDING)
+        db.collection("recipes").orderBy("calories", Query.Direction.ASCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
@@ -51,7 +51,7 @@ public class Recipes {
                             if(dc.getType() == DocumentChange.Type.ADDED){
                                 recipeItems.add(dc.getDocument().toObject(RecipeItem.class));
                                 Log.d(TAG, "Recipe data: " + recipeItems);
-                                ///MainActivity.progressBar.setVisibility(View.GONE);
+                                //MainActivity.progressBar.setVisibility(View.GONE);
                                 //RecipesFragment.recipesItemAdapter.notifyDataSetChanged();
                             }
                         }
