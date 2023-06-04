@@ -31,7 +31,7 @@ public class RecipesFragment extends Fragment {
     public static RecipesItemAdapter recipesItemAdapter;
     public static ArrayList<String> missing1Color;
     public static ArrayList<String> missing2Color;
-    private ArrayList<RecipeItem> SearchFilteredList;
+    private ArrayList<RecipeItem> searchFilteredList;
     ArrayList<RecipeItem> filtered;
 
     TextView textView;
@@ -78,15 +78,22 @@ public class RecipesFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.i("GridViewInfo: ", "position " + i + " "+ SearchFilteredList.get(i));
+                ArrayList<RecipeItem> list;
+                if (searchFilteredList == null){
+                    list = filtered;
+                }else{
+                    list = searchFilteredList;
+                }
 
                 Intent intent = new Intent(inflatedView.getContext(), RecipeActivity.class);
+                Log.i("GridViewInfo: ", "position " + i + " "+ list.get(i));
 
-                intent.putExtra("caption", SearchFilteredList.get(i).getCaption());
-                intent.putExtra("image", SearchFilteredList.get(i).getImage());
-                intent.putExtra("description", SearchFilteredList.get(i).getDescription());
-                intent.putExtra("ingredients",SearchFilteredList.get(i).getStringIngredients());
-                intent.putExtra("calories",SearchFilteredList.get(i).getCalories());
+                intent.putExtra("caption", list.get(i).getCaption());
+                intent.putExtra("image", list.get(i).getImage());
+                intent.putExtra("description", list.get(i).getDescription());
+                intent.putExtra("ingredients",list.get(i).getStringIngredients());
+                intent.putExtra("calories",list.get(i).getCalories());
+
                 startActivity(intent);
             }
         });
@@ -142,12 +149,12 @@ public class RecipesFragment extends Fragment {
 
 
     private void searchFilter(String newText) {
-        SearchFilteredList = new ArrayList<>();
+        searchFilteredList = new ArrayList<>();
         for(RecipeItem item : filtered){
             if(item.getCaption().toLowerCase().contains(newText.toLowerCase())){
-                SearchFilteredList.add(item);
+                searchFilteredList.add(item);
             }
         }
-        recipesItemAdapter.filterList(SearchFilteredList);
+        recipesItemAdapter.filterList(searchFilteredList);
     }
 }
