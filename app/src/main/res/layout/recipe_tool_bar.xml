@@ -34,7 +34,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="0dp"
             android:padding="10dp"
-            android:src="@drawable/favorite_30" />
+            android:src="@drawable/favorite_border_30" />
     </RelativeLayout>
 
 </RelativeLayout>

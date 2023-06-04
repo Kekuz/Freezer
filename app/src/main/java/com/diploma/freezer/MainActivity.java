@@ -3,6 +3,7 @@ package com.diploma.freezer;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.diploma.freezer.account.AccountFragment;
 import com.diploma.freezer.databinding.ActivityMainBinding;
@@ -50,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.navigation_freezer){
                 replaceFragment(new FreezerFragment());
             }else if (item.getItemId() == R.id.navigation_recipes){
+                replaceFragment(new RecipesFragment());
+            }else if (item.getItemId() == R.id.navigation_video){
+                Toast.makeText(MainActivity.this, "Этот функционал еще не готов!!!", Toast.LENGTH_SHORT).show();
                 replaceFragment(new RecipesFragment());
             }else if (item.getItemId() == R.id.navigation_account) {
                 replaceFragment(new AccountFragment());

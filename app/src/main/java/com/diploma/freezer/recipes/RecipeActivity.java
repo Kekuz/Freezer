@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.diploma.freezer.R;
 import com.diploma.freezer.RatingItem;
@@ -20,7 +21,7 @@ import com.squareup.picasso.Picasso;
 
 public class RecipeActivity extends AppCompatActivity {
     TextView captionView, descriptionView, productsTextView, textViewRating, caloriesTextView;
-    ImageView imageView, imageButton;
+    ImageView imageView, imageButton, likeIcon;
     RatingBar ratingBar;
 
     @SuppressLint("SetTextI18n")
@@ -37,6 +38,7 @@ public class RecipeActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         textViewRating = findViewById(R.id.textViewRating);
         caloriesTextView = findViewById(R.id.caloriesTextView);
+        likeIcon = findViewById(R.id.like_icon);
 
         imageButton.setOnClickListener(view -> finish());
 
@@ -60,6 +62,24 @@ public class RecipeActivity extends AppCompatActivity {
             textViewRating.setVisibility(View.VISIBLE);
             textViewRating.setText(String.format("%.1f", Float.parseFloat(currentRating.findByName(recipeName).getSum()) / Float.parseFloat(currentRating.findByName(recipeName).getCount())) + "/5.0");
         }
+
+        likeIcon.setOnClickListener(new View.OnClickListener() {
+
+            //Убрать после реализации избранного
+            int likeFlag = 0;
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(RecipeActivity.this, "Этот функционал еще не готов!!!", Toast.LENGTH_SHORT).show();
+
+                if (likeFlag % 2 == 0) {
+                    likeIcon.setImageResource(R.drawable.favorite_30);
+                }
+                else {
+                    likeIcon.setImageResource(R.drawable.favorite_border_30);
+                }
+                likeFlag += 1;
+            }
+        });
 
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {

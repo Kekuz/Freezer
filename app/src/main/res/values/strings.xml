@@ -34,4 +34,6 @@
     <string name="clear">Отчистить</string>
     <string name="no_recipes">Подходящих рецептов нет :(</string>
     <string name="calories_count">Ккал на 100г:</string>
+    <string name="video_profile">Видео</string>
+    <string name="menu_item">Пункт меню</string>
 </resources>
