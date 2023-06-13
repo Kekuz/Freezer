@@ -11,6 +11,8 @@ import com.diploma.freezer.fridge.FreezerFragment;
 import com.diploma.freezer.fridge.Fridge;
 import com.diploma.freezer.recipes.Recipes;
 import com.diploma.freezer.recipes.RecipesFragment;
+import com.diploma.freezer.video.VideoFragment;
+import com.diploma.freezer.video.Videos;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public static Fridge currentFridge;//Создаем базу продуктов
     public static Recipes currentRecipes;//Создаем базу рецептов
     public static Rating currentRating;
+    public static Videos currentVideos;
     public static ProgressBar progressBar;
 
     @SuppressLint("NonConstantResourceId")
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         currentFridge = new Fridge();
         currentRecipes = new Recipes();
         currentRating = new Rating();
+        currentVideos = new Videos();
 
 
 
@@ -53,8 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }else if (item.getItemId() == R.id.navigation_recipes){
                 replaceFragment(new RecipesFragment());
             }else if (item.getItemId() == R.id.navigation_video){
-                Toast.makeText(MainActivity.this, "Этот функционал еще не готов!!!", Toast.LENGTH_SHORT).show();
-                replaceFragment(new RecipesFragment());
+                replaceFragment(new VideoFragment());
             }else if (item.getItemId() == R.id.navigation_account) {
                 replaceFragment(new AccountFragment());
             }
@@ -76,5 +79,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         binding.bottomNavView.getMenu().findItem(R.id.navigation_freezer).setChecked(true);
+        replaceFragment(new FreezerFragment());
     }
 }
