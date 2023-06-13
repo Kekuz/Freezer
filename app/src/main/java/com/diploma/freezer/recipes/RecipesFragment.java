@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.TextView;
 
 import androidx.appcompat.widget.SearchView;
 
@@ -34,8 +33,6 @@ public class RecipesFragment extends Fragment {
     private ArrayList<RecipeItem> searchFilteredList;
     ArrayList<RecipeItem> filtered;
 
-    TextView textView;
-
 
 
     @SuppressLint("MissingInflatedId")
@@ -43,7 +40,6 @@ public class RecipesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View inflatedView = inflater.inflate(R.layout.fragment_recipes, container, false);
-        textView = inflatedView.findViewById(R.id.back_text_recipes);
 
         gridView = inflatedView.findViewById(R.id.gridView);
 

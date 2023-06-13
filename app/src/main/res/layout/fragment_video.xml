@@ -17,17 +17,16 @@
         <androidx.appcompat.widget.SearchView
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:id="@+id/admin_search_view"
+            android:id="@+id/video_search_view"
             app:queryHint="@string/enter_product"
-            android:background="?attr/colorOnPrimary"
-            android:visibility="gone">
+            android:background="?attr/colorOnPrimary">
 
         </androidx.appcompat.widget.SearchView>
 
         <GridView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/gridView"
+            android:id="@+id/videoGridView"
             android:numColumns="1"/>
     </LinearLayout>
 

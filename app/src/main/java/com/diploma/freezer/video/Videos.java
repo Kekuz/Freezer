@@ -23,7 +23,7 @@ public class Videos {
     }
 
     private void syncData() {
-        FirebaseFirestore.getInstance().collection("video").orderBy("calories", Query.Direction.ASCENDING)
+        FirebaseFirestore.getInstance().collection("video").orderBy("caption", Query.Direction.ASCENDING)
                 .addSnapshotListener((value, error) -> {
 
                     if (error != null){
