@@ -82,7 +82,7 @@ public class RecipesFragment extends Fragment {
                 }
 
                 Intent intent = new Intent(inflatedView.getContext(), RecipeActivity.class);
-                Log.i("GridViewInfo: ", "position " + i + " "+ list.get(i));
+                Log.d("GridViewInfo: ", "position " + i + " "+ list.get(i));
 
                 intent.putExtra("caption", list.get(i).getCaption());
                 intent.putExtra("image", list.get(i).getImage());
@@ -133,7 +133,7 @@ public class RecipesFragment extends Fragment {
                 missing2Color.add(x.getCaption());
             }
 
-            Log.i("recipeIng: ", x.getIngredients().toString());
+            Log.d("recipeIng: ", x.getIngredients().toString());
         }
         res.addAll(res1);
         res.addAll(res2);

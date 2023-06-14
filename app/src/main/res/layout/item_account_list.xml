@@ -10,22 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="20dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/profile_item_text"
-                android:text="@string/menu_item"
+                android:id="@+id/listItemFirst"
+                android:text="@string/list_item_first"
                 android:layout_marginStart="20dp"
                 android:textColor="?attr/colorOnSecondary"
-                android:textSize="26sp"/>
+                android:textSize="22sp"/>
 
 
-    </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -36,11 +36,12 @@
             android:layout_marginVertical="20dp"
             android:layout_marginEnd="10dp">
 
-            <ImageView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:src="@drawable/baseline_arrow_forward_ios_24" />
+                android:textSize="22sp"
+                android:id="@+id/listItemSecond"
+                android:text="@string/list_item_second"/>
 
         </LinearLayout>
     </RelativeLayout>

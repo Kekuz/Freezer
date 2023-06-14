@@ -34,7 +34,7 @@ public class User {
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
     private String email, name, admin;
-    private ArrayList<String> foodList;
+    private ArrayList<String> foodList, favorites;
     private Map<String,String> userRating;
     private FirebaseFirestore firebaseFirestore;
     private DocumentReference usersInfoReference;
@@ -57,11 +57,13 @@ public class User {
                         name = document.getData().get("name").toString();
                         admin = document.getData().get("admin").toString();
                         foodList = (ArrayList<String>) document.getData().get("foodList");
+                        favorites = (ArrayList<String>) document.getData().get("favorites");
                         userRating = (Map<String, String>) document.getData().get("userRating");
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         Log.d(TAG, "Name data:" + name);
                         Log.d(TAG, "Admin data: " + admin);
                         Log.d(TAG, "foodList data: " + foodList.toString());
+                        Log.d(TAG, "favorites data: " + favorites.toString());
                         Log.d(TAG, "userRate data: " + userRating.toString());
                         if (currentFirebaseUser.isAdmin() && adminSearchView != null) adminSearchView.setVisibility(View.VISIBLE);
 
@@ -182,6 +184,10 @@ public class User {
 
     public Map<String, String> getUserRating(){
         return userRating;
+    }
+
+    public ArrayList<String> getFavorites() {
+        return favorites;
     }
 
     public FirebaseFirestore getFirebaseFirestore() {

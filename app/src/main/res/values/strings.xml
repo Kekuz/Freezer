@@ -37,4 +37,6 @@
     <string name="video_profile">Видео</string>
     <string name="menu_item">Пункт меню</string>
     <string name="loading_error">Ошибка загрузки</string>
+    <string name="list_item_second">Второй элемент</string>
+    <string name="list_item_first">Первый элемент</string>
 </resources>

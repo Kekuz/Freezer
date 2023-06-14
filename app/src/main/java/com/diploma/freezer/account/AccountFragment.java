@@ -7,17 +7,17 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
 
 
-import com.diploma.freezer.fridge.FreezerItemsAdapter;
 import com.diploma.freezer.logreg.Login;
 import com.diploma.freezer.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class AccountFragment extends Fragment {
     Button button;
     TextView nameTextView;
-    RecyclerView recyclerView;
+    GridView gridView;
     AccountItemsAdapter accountItemsAdapter;
 
 
@@ -42,9 +42,7 @@ public class AccountFragment extends Fragment {
         nameTextView.setText(currentFirebaseUser.getName());
 
 
-        recyclerView = inflatedView.findViewById(R.id.profile_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(inflatedView.getContext()));
+        gridView = inflatedView.findViewById(R.id.profile_grid_view);
 
         ArrayList<AccountItem> accountItems = new ArrayList<>();
 
@@ -53,9 +51,30 @@ public class AccountFragment extends Fragment {
         accountItems.add(new AccountItem("Оценки"));
 
         accountItemsAdapter = new AccountItemsAdapter(inflatedView.getContext(), accountItems);
-        recyclerView.setAdapter(accountItemsAdapter);
+        gridView.setAdapter(accountItemsAdapter);
 
         //Чтобы обрабатывать нажатия нужно сделать GridView
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Log.d("AccountGridViewInfo: ", "position " + i + " "+ accountItems.get(i));
+
+                Intent intent;
+                if(i == 0){
+                    intent = new Intent(inflatedView.getContext(), ProfileActivity.class);
+                }else if (i == 1){
+                    intent = new Intent(inflatedView.getContext(), ListAccountActivity.class);
+                    intent.putExtra("type", "favorites");
+                }else{
+                    intent = new Intent(inflatedView.getContext(), ListAccountActivity.class);
+                    intent.putExtra("type", "rating");
+                }
+
+                startActivity(intent);
+
+            }
+        });
 
 
         if (currentFirebaseUser.getFirebaseUser() == null){

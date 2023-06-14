@@ -75,10 +75,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        binding.bottomNavView.getMenu().findItem(R.id.navigation_freezer).setChecked(true);
-        replaceFragment(new FreezerFragment());
-    }
 }
