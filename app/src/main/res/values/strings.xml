@@ -39,4 +39,7 @@
     <string name="loading_error">Ошибка загрузки</string>
     <string name="list_item_second">Второй элемент</string>
     <string name="list_item_first">Первый элемент</string>
+    <string name="list_name">Название списка</string>
+    <string name="favorites">Избранное</string>
+    <string name="rating">Оценки</string>
 </resources>

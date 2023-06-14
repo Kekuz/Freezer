@@ -8,11 +8,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.media.Image;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.diploma.freezer.R;
 import com.diploma.freezer.fridge.FreezerItemsUserAdapter;
+import com.diploma.freezer.logreg.Login;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,8 @@ public class ListAccountActivity extends AppCompatActivity {
     String type;
     RecyclerView recyclerView;
     ListItemAdapter listItemAdapter;
+    ImageView imageButton;
+    TextView listNameView;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -32,6 +37,10 @@ public class ListAccountActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        listNameView = findViewById(R.id.list_name);
+
+        imageButton = findViewById(R.id.back_icon);
+        imageButton.setOnClickListener(view -> finish());
 
 
 
@@ -41,10 +50,12 @@ public class ListAccountActivity extends AppCompatActivity {
 
             listItemAdapter = new ListItemAdapter(this, convertFavorites(currentFirebaseUser.getFavorites()));//тут передаем общий адаптер
             recyclerView.setAdapter(listItemAdapter);
+            listNameView.setText(ListAccountActivity.this.getString(R.string.favorites));
         }else{
 
             listItemAdapter = new ListItemAdapter(this, convertRating(currentFirebaseUser.getUserRating()));//тут передаем общий адаптер
             recyclerView.setAdapter(listItemAdapter);
+            listNameView.setText(ListAccountActivity.this.getString(R.string.rating));
         }
 
     }

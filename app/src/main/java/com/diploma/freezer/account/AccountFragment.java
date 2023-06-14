@@ -46,9 +46,9 @@ public class AccountFragment extends Fragment {
 
         ArrayList<AccountItem> accountItems = new ArrayList<>();
 
-        accountItems.add(new AccountItem("Профиль"));
-        accountItems.add(new AccountItem("Избранное"));
-        accountItems.add(new AccountItem("Оценки"));
+        accountItems.add(new AccountItem(inflatedView.getContext().getString(R.string.title_profile)));
+        accountItems.add(new AccountItem(inflatedView.getContext().getString(R.string.favorites)));
+        accountItems.add(new AccountItem(inflatedView.getContext().getString(R.string.rating)));
 
         accountItemsAdapter = new AccountItemsAdapter(inflatedView.getContext(), accountItems);
         gridView.setAdapter(accountItemsAdapter);
