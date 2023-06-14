@@ -42,4 +42,6 @@
     <string name="list_name">Название списка</string>
     <string name="favorites">Избранное</string>
     <string name="rating">Оценки</string>
+    <string name="added_to_favorites">добавлен в избранное</string>
+    <string name="deleted_from_favorites">удален из избранного</string>
 </resources>

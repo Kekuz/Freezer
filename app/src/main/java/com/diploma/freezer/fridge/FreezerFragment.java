@@ -78,13 +78,12 @@ public class FreezerFragment extends Fragment {
         @SuppressLint("NotifyDataSetChanged")
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            Toast toast = Toast.makeText(getContext(), currentFirebaseUser.getUserFridge().get(viewHolder.getAdapterPosition()).getFoodName() + " " + getContext().getResources().getString(R.string.product_deleted), Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(getContext(), currentFirebaseUser.getUserFridge().get(viewHolder.getAdapterPosition()).getFoodName() + " " + getContext().getResources().getString(R.string.product_deleted), Toast.LENGTH_SHORT).show();
             currentFirebaseUser.getUserFridge().remove(viewHolder.getAdapterPosition());
 
             currentFirebaseUser.saveProductListFirebase();
 
-            freezerItemsAdapter.notifyDataSetChanged();
+            freezerItemsAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
         }
     };
 

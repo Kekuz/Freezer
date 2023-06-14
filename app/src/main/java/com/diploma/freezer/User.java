@@ -6,17 +6,15 @@ import static com.diploma.freezer.MainActivity.currentFirebaseUser;
 import static com.diploma.freezer.recipes.RecipesFragment.adminSearchView;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.diploma.freezer.account.ListItem;
 import com.diploma.freezer.fridge.FreezerFragment;
 import com.diploma.freezer.fridge.FreezerItem;
-import com.diploma.freezer.fridge.FreezerItemsUserAdapter;
 import com.diploma.freezer.recipes.RecipesFragment;
-import com.diploma.freezer.recipes.RecipesItemAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -138,6 +136,34 @@ public class User {
         firebaseFirestore.collection("users").document(email)
                 .set(info, SetOptions.merge())
                 .addOnSuccessListener(aVoid -> Log.d(TAG, "Products successfully saved:" + userStringFridge.toString()))
+                .addOnFailureListener(e -> Log.w(TAG, "Error saving products", e));
+    }
+
+    public void saveFavoritesListFirebase(ArrayList<ListItem> in){
+
+        ArrayList<String> out = new ArrayList<>();
+
+        for (ListItem item: in) {
+            out.add(item.getListItemFirst());
+        }
+
+        Map<String, Object> info = new HashMap<>();
+        info.put("favorites", out);
+
+        firebaseFirestore.collection("users").document(email)
+                .set(info, SetOptions.merge())
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "Favorites successfully saved:" + in.toString()))
+                .addOnFailureListener(e -> Log.w(TAG, "Error saving products", e));
+    }
+
+    public void saveFavoritesStringListFirebase(ArrayList<String> in){
+
+        Map<String, Object> info = new HashMap<>();
+        info.put("favorites", in);
+
+        firebaseFirestore.collection("users").document(email)
+                .set(info, SetOptions.merge())
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "Favorites successfully saved:" + in.toString()))
                 .addOnFailureListener(e -> Log.w(TAG, "Error saving products", e));
     }
 

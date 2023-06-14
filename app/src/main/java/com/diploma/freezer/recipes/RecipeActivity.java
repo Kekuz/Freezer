@@ -23,6 +23,7 @@ public class RecipeActivity extends AppCompatActivity {
     TextView captionView, descriptionView, productsTextView, textViewRating, caloriesTextView;
     ImageView imageView, imageButton, likeIcon;
     RatingBar ratingBar;
+    boolean likeFlag;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -43,6 +44,9 @@ public class RecipeActivity extends AppCompatActivity {
         imageButton.setOnClickListener(view -> finish());
 
         String recipeName = getIntent().getExtras().getString("caption");
+
+        likeFlag = currentFirebaseUser.getFavorites().contains(recipeName);
+        if (likeFlag) likeIcon.setImageResource(R.drawable.favorite_30);
 
         descriptionView.setText(Html.fromHtml(getIntent().getExtras().getString("description"), Html.FROM_HTML_MODE_COMPACT));
         captionView.setText(recipeName);
@@ -65,19 +69,23 @@ public class RecipeActivity extends AppCompatActivity {
 
         likeIcon.setOnClickListener(new View.OnClickListener() {
 
-            //Убрать после реализации избранного
-            int likeFlag = 0;
+
             @Override
             public void onClick(View v) {
-                Toast.makeText(RecipeActivity.this, "Этот функционал еще не готов!!!", Toast.LENGTH_SHORT).show();
 
-                if (likeFlag % 2 == 0) {
+                if (!likeFlag) {
+                    Toast.makeText(RecipeActivity.this, recipeName + " " + RecipeActivity.this.getString(R.string.added_to_favorites), Toast.LENGTH_SHORT).show();
                     likeIcon.setImageResource(R.drawable.favorite_30);
+                    currentFirebaseUser.getFavorites().add(recipeName);
+                    likeFlag = true;
                 }
                 else {
+                    Toast.makeText(RecipeActivity.this, recipeName + " " + RecipeActivity.this.getString(R.string.deleted_from_favorites), Toast.LENGTH_SHORT).show();
                     likeIcon.setImageResource(R.drawable.favorite_border_30);
+                    currentFirebaseUser.getFavorites().remove(recipeName);
+                    likeFlag = false;
                 }
-                likeFlag += 1;
+                currentFirebaseUser.saveFavoritesStringListFirebase(currentFirebaseUser.getFavorites());
             }
         });
 

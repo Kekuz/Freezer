@@ -62,6 +62,9 @@ public class RecipesItemAdapter extends BaseAdapter {
         TextView gridCaption = view.findViewById(R.id.gridCaption);
         cardView = view.findViewById(R.id.colorful_cardView);
 
+        // Это вызывает критическую ошибку, надо переписать
+
+        /*
         TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue, true);
         @ColorInt int colorPrimary = typedValue.data;
@@ -76,6 +79,8 @@ public class RecipesItemAdapter extends BaseAdapter {
             cardView.setCardBackgroundColor(colorSecondary);
         else
             cardView.setCardBackgroundColor(colorOnPrimary);
+
+         */
 
         try{
             Picasso.get().load(recipeItems.get(i).getImage()).into(gridImage);

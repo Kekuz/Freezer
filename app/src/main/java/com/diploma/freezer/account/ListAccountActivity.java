@@ -1,21 +1,20 @@
 package com.diploma.freezer.account;
 
 import static com.diploma.freezer.MainActivity.currentFirebaseUser;
-import static com.diploma.freezer.MainActivity.currentFridge;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.media.Image;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.diploma.freezer.R;
-import com.diploma.freezer.fridge.FreezerItemsUserAdapter;
-import com.diploma.freezer.logreg.Login;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +26,7 @@ public class ListAccountActivity extends AppCompatActivity {
     ListItemAdapter listItemAdapter;
     ImageView imageButton;
     TextView listNameView;
+    ArrayList<ListItem> convertedFavorites, convertedRating;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -42,23 +42,67 @@ public class ListAccountActivity extends AppCompatActivity {
         imageButton = findViewById(R.id.back_icon);
         imageButton.setOnClickListener(view -> finish());
 
+        convertedFavorites = convertFavorites(currentFirebaseUser.getFavorites());
+        convertedRating = convertRating(currentFirebaseUser.getUserRating());
 
 
         type = getIntent().getExtras().getString("type");
 
+
+
         if (type.equals("favorites")){
 
-            listItemAdapter = new ListItemAdapter(this, convertFavorites(currentFirebaseUser.getFavorites()));//тут передаем общий адаптер
+            listItemAdapter = new ListItemAdapter(this, convertedFavorites);//тут передаем общий адаптер
             recyclerView.setAdapter(listItemAdapter);
             listNameView.setText(ListAccountActivity.this.getString(R.string.favorites));
+
         }else{
 
-            listItemAdapter = new ListItemAdapter(this, convertRating(currentFirebaseUser.getUserRating()));//тут передаем общий адаптер
+            listItemAdapter = new ListItemAdapter(this, convertedRating);//тут передаем общий адаптер
             recyclerView.setAdapter(listItemAdapter);
             listNameView.setText(ListAccountActivity.this.getString(R.string.rating));
         }
 
+        ItemTouchHelper helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(recyclerView);
+
     }
+
+    ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @SuppressLint("NotifyDataSetChanged")
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+            Toast.makeText(ListAccountActivity.this, ListAccountActivity.this.getString(R.string.product_deleted), Toast.LENGTH_SHORT).show();
+
+            if(type.equals("favorites")){
+
+                currentFirebaseUser.getFavorites().remove(viewHolder.getAdapterPosition());
+                convertedFavorites.remove(viewHolder.getAdapterPosition());
+
+                currentFirebaseUser.saveFavoritesListFirebase(convertedFavorites);
+
+                listItemAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+            }else{
+
+                //Тут надо еще обновлять базу у пользователя и менять оценки в Rating
+
+                List<String> keys = new ArrayList<>(currentFirebaseUser.getUserRating().keySet());
+
+                currentFirebaseUser.getUserRating().remove(keys.get(viewHolder.getAdapterPosition()));
+                convertedRating.remove(viewHolder.getAdapterPosition());
+
+                //currentFirebaseUser.saveProductListFirebase();
+
+                listItemAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+            }
+        }
+    };
 
     private ArrayList<ListItem> convertFavorites(ArrayList<String> in){
         ArrayList<ListItem> out = new ArrayList<>();
@@ -74,7 +118,7 @@ public class ListAccountActivity extends AppCompatActivity {
         List<String> keys = new ArrayList<>(in.keySet());
         for(int i = 0; i < keys.size(); i++) {
             String key = keys.get(i);
-            String value = in.get(key);
+            String value = in.get(key).charAt(0) + "/5";
             out.add(new ListItem(key,value));
         }
         return out;
