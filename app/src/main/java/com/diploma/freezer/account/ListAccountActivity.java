@@ -1,6 +1,7 @@
 package com.diploma.freezer.account;
 
 import static com.diploma.freezer.MainActivity.currentFirebaseUser;
+import static com.diploma.freezer.MainActivity.currentRating;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -90,14 +91,21 @@ public class ListAccountActivity extends AppCompatActivity {
                 listItemAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
             }else{
 
-                //Тут надо еще обновлять базу у пользователя и менять оценки в Rating
 
                 List<String> keys = new ArrayList<>(currentFirebaseUser.getUserRating().keySet());
+                String name = keys.get(viewHolder.getAdapterPosition());// Имя рецепта
 
-                currentFirebaseUser.getUserRating().remove(keys.get(viewHolder.getAdapterPosition()));
-                convertedRating.remove(viewHolder.getAdapterPosition());
 
-                //currentFirebaseUser.saveProductListFirebase();
+
+                currentRating.updateRatingItem(name);//обновляем локальный рейтинг рецептов
+
+                currentFirebaseUser.getUserRating().remove(name);//удаляем из профиля пользователя локально
+
+                convertedRating.remove(viewHolder.getAdapterPosition());// удяляем отсюда чтобы окно правильно обновилось
+
+                currentFirebaseUser.updateRatingFirebase(currentRating.findByName(name));//обновляем и у пользователя и в общем рейтинге онлайн
+
+
 
                 listItemAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
             }

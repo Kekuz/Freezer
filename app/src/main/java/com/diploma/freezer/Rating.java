@@ -26,6 +26,11 @@ public class Rating {
         }
         return null;
     }
+    public void updateRatingItem(String name){
+        RatingItem ratingItem = findByName(name);
+        ratingItem.setCount(String.valueOf(Float.parseFloat(ratingItem.getCount()) - 1.0));
+        ratingItem.setSum(String.valueOf(Float.parseFloat(ratingItem.getSum()) - Float.parseFloat(currentFirebaseUser.getUserRating().get(name))));
+    }
 
     public ArrayList<RatingItem> getRatingItems() {
         return ratingItems;

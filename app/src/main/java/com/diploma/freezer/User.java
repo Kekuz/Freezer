@@ -3,6 +3,7 @@ package com.diploma.freezer;
 import static android.content.ContentValues.TAG;
 
 import static com.diploma.freezer.MainActivity.currentFirebaseUser;
+import static com.diploma.freezer.MainActivity.currentRating;
 import static com.diploma.freezer.recipes.RecipesFragment.adminSearchView;
 
 import android.annotation.SuppressLint;
@@ -191,6 +192,27 @@ public class User {
                 .set(info, SetOptions.merge())
                 .addOnSuccessListener(aVoid -> Log.d(TAG, "Rating successfully saved:" + map.toString()))
                 .addOnFailureListener(e -> Log.w(TAG, "Error saving rating", e));
+    }
+
+    public void updateRatingFirebase(RatingItem ratingItem){// обновляет у пользователи и в общем разделе тоже
+
+
+        firebaseFirestore.collection("users").document(email)
+                .update("userRating", userRating)
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "Rating successfully updated:" + userRating.toString()))
+                .addOnFailureListener(e -> Log.w(TAG, "Error saving products", e));
+
+        Map<String, String> info = new HashMap<>();
+
+        info.put("count", ratingItem.getCount());
+        info.put("name", ratingItem.getName());
+        info.put("sum", ratingItem.getSum());
+
+        firebaseFirestore.collection("rating").document(ratingItem.getName())
+                .set(info)
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "Rating successfully saved:" + info))
+                .addOnFailureListener(e -> Log.w(TAG, "Error saving rating", e));
+
     }
 
     public float getRating(String name){

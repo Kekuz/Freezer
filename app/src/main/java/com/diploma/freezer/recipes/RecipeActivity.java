@@ -62,7 +62,7 @@ public class RecipeActivity extends AppCompatActivity {
         ratingBar.setRating(currentFirebaseUser.getRating(recipeName));
 
 
-        if (currentRating.findByName(recipeName) != null){
+        if (currentRating.findByName(recipeName) != null && !currentRating.findByName(recipeName).getCount().equals("0.0")){
             textViewRating.setVisibility(View.VISIBLE);
             textViewRating.setText(String.format("%.1f", Float.parseFloat(currentRating.findByName(recipeName).getSum()) / Float.parseFloat(currentRating.findByName(recipeName).getCount())) + "/5.0");
         }
