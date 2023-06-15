@@ -114,6 +114,14 @@ public class User {
         return userFridge;
     }
 
+    public ArrayList<String> getUserStringFridge() {
+        ArrayList<String> out = new ArrayList<>();
+        for (FreezerItem f: userFridge) {
+            out.add(f.getFoodName());
+        }
+        return out;
+    }
+
     public String getName() {
         return name;
     }

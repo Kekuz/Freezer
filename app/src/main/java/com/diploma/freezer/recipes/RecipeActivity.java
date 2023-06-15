@@ -19,8 +19,10 @@ import com.diploma.freezer.R;
 import com.diploma.freezer.RatingItem;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class RecipeActivity extends AppCompatActivity {
-    TextView captionView, descriptionView, productsTextView, textViewRating, caloriesTextView;
+    TextView captionView, descriptionView, productsTextView, redProductsTextView, textViewRating, caloriesTextView;
     ImageView imageView, imageButton, likeIcon;
     RatingBar ratingBar;
     boolean likeFlag;
@@ -35,6 +37,7 @@ public class RecipeActivity extends AppCompatActivity {
         descriptionView = findViewById(R.id.descriptionTextView);
         imageView = findViewById(R.id.recipeImageView);
         productsTextView = findViewById(R.id.productsTextView);
+        redProductsTextView = findViewById(R.id.redProductsTextView);
         imageButton = findViewById(R.id.back_icon);
         ratingBar = findViewById(R.id.ratingBar);
         textViewRating = findViewById(R.id.textViewRating);
@@ -50,7 +53,28 @@ public class RecipeActivity extends AppCompatActivity {
 
         descriptionView.setText(Html.fromHtml(getIntent().getExtras().getString("description"), Html.FROM_HTML_MODE_COMPACT));
         captionView.setText(recipeName);
-        productsTextView.setText(getIntent().getExtras().getString("ingredients"));
+
+        String[] ingredientsList = getIntent().getExtras().getString("ingredients").split("\n");
+        Log.d("Split result:", ingredientsList[0].substring(1)+"|"+ingredientsList[1].substring(1));
+        StringBuilder missingIngredients = new StringBuilder();
+        StringBuilder presentIngredients = new StringBuilder();
+
+        for (String s: ingredientsList) {
+            if (currentFirebaseUser.getUserStringFridge().contains(s.substring(1)))
+                presentIngredients.append(s).append("\n");
+            else missingIngredients.append(s).append("\n");
+        }
+
+        if (missingIngredients.length() > 0)
+            missingIngredients.deleteCharAt(missingIngredients.length() - 1);
+
+        if (presentIngredients.length() > 0)
+            presentIngredients.deleteCharAt(presentIngredients.length() - 1);
+
+        productsTextView.setText(presentIngredients);
+        redProductsTextView.setText(missingIngredients);
+
+
         caloriesTextView.setText(RecipeActivity.this.getString(R.string.calories_count) + " " + getIntent().getExtras().getString("calories"));
 
         try {

@@ -63,9 +63,22 @@
             android:textSize="22sp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:paddingBottom="10dp"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/articleTextView" />
+
+        <TextView
+            android:id="@+id/redProductsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_list"
+            android:textSize="22sp"
+            android:textColor="?attr/colorSecondary"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productsTextView" />
 
         <TextView
             android:id="@+id/instructionsTextView"
@@ -77,7 +90,7 @@
             android:paddingStart="20dp"
             android:paddingBottom="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productsTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/redProductsTextView" />
 
         <TextView
         android:id="@+id/descriptionTextView"
