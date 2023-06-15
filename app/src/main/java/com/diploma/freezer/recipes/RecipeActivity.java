@@ -55,7 +55,7 @@ public class RecipeActivity extends AppCompatActivity {
         captionView.setText(recipeName);
 
         String[] ingredientsList = getIntent().getExtras().getString("ingredients").split("\n");
-        Log.d("Split result:", ingredientsList[0].substring(1)+"|"+ingredientsList[1].substring(1));
+        //Log.d("Split result:", ingredientsList[0].substring(1)+"|"+ingredientsList[1].substring(1));
         StringBuilder missingIngredients = new StringBuilder();
         StringBuilder presentIngredients = new StringBuilder();
 

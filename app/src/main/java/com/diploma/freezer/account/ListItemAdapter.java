@@ -14,12 +14,14 @@ import com.diploma.freezer.R;
 import java.util.ArrayList;
 
 public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.MyViewHolder>{
+    private final RecyclerViewInterface recyclerViewInterface;
     Context context;
     ArrayList<ListItem> listItems;
 
-    public ListItemAdapter(Context context, ArrayList<ListItem> listItems) {
+    public ListItemAdapter(Context context, ArrayList<ListItem> listItems, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.listItems = listItems;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
 
@@ -30,7 +32,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.MyView
 
         View v = LayoutInflater.from(context).inflate(R.layout.item_account_list, parent,false);
 
-        return new ListItemAdapter.MyViewHolder(v);
+        return new ListItemAdapter.MyViewHolder(v,recyclerViewInterface);
     }
 
     @Override
@@ -53,10 +55,23 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.MyView
 
         TextView listItemFirst, listItemSecond;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             listItemFirst = itemView.findViewById(R.id.listItemFirst);
             listItemSecond = itemView.findViewById(R.id.listItemSecond);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(recyclerViewInterface != null){
+                        int pos = getAdapterPosition();
+
+                        if (pos != RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(pos, listItemFirst.getText().toString());
+                        }
+                    }
+                }
+            });
         }
     }
 }

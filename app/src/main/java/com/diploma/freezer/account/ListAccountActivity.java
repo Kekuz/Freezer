@@ -2,6 +2,7 @@ package com.diploma.freezer.account;
 
 import static com.diploma.freezer.MainActivity.currentFirebaseUser;
 import static com.diploma.freezer.MainActivity.currentRating;
+import static com.diploma.freezer.MainActivity.currentRecipes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,18 +11,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.diploma.freezer.R;
+import com.diploma.freezer.recipes.RecipeActivity;
+import com.diploma.freezer.recipes.RecipeItem;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ListAccountActivity extends AppCompatActivity {
+public class ListAccountActivity extends AppCompatActivity implements RecyclerViewInterface {
     String type;
     RecyclerView recyclerView;
     ListItemAdapter listItemAdapter;
@@ -53,13 +58,13 @@ public class ListAccountActivity extends AppCompatActivity {
 
         if (type.equals("favorites")){
 
-            listItemAdapter = new ListItemAdapter(this, convertedFavorites);//тут передаем общий адаптер
+            listItemAdapter = new ListItemAdapter(this, convertedFavorites, this);//тут передаем общий адаптер
             recyclerView.setAdapter(listItemAdapter);
             listNameView.setText(ListAccountActivity.this.getString(R.string.favorites));
 
         }else{
 
-            listItemAdapter = new ListItemAdapter(this, convertedRating);//тут передаем общий адаптер
+            listItemAdapter = new ListItemAdapter(this, convertedRating,this);//тут передаем общий адаптер
             recyclerView.setAdapter(listItemAdapter);
             listNameView.setText(ListAccountActivity.this.getString(R.string.rating));
         }
@@ -135,5 +140,24 @@ public class ListAccountActivity extends AppCompatActivity {
             out.add(new ListItem(key,value));
         }
         return out;
+    }
+
+    @Override
+    public void onItemClick(int position, String name) {
+        if (type.equals("favorites")){
+            Intent intent = new Intent(this, RecipeActivity.class);
+
+            RecipeItem recipeItem = currentRecipes.findByName(name);
+
+            Log.d("GridViewInfo: ", "position " + position + " "+ name);
+
+            intent.putExtra("caption", recipeItem.getCaption());
+            intent.putExtra("image", recipeItem.getImage());
+            intent.putExtra("description", recipeItem.getDescription());
+            intent.putExtra("ingredients",recipeItem.getStringIngredients());
+            intent.putExtra("calories",recipeItem.getCalories());
+
+            startActivity(intent);
+        }
     }
 }

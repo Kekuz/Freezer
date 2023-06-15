@@ -33,6 +33,13 @@ public class Recipes {
         return recipeItems;
     }
 
+    public RecipeItem findByName(String name){
+        for (RecipeItem item: recipeItems) {
+            if(item.getCaption().equals(name)) return item;
+        }
+        return null;
+    }
+
     private void syncData(){
 
         db.collection("recipes").orderBy("calories", Query.Direction.ASCENDING)
