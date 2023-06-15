@@ -1,7 +1,6 @@
 package com.diploma.freezer.recipes;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.annotation.ColorInt;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -62,9 +61,7 @@ public class RecipesItemAdapter extends BaseAdapter {
         TextView gridCaption = view.findViewById(R.id.gridCaption);
         cardView = view.findViewById(R.id.colorful_cardView);
 
-        // Это вызывает критическую ошибку, надо переписать
 
-        /*
         TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue, true);
         @ColorInt int colorPrimary = typedValue.data;
@@ -80,10 +77,10 @@ public class RecipesItemAdapter extends BaseAdapter {
         else
             cardView.setCardBackgroundColor(colorOnPrimary);
 
-         */
+
 
         try{
-            Picasso.get().load(recipeItems.get(i).getImage()).into(gridImage);
+            Picasso.get().load(recipeItems.get(i).getImage()).resize(gridImage.getWidth(), 300).centerInside().into(gridImage);
         }
         catch (Exception e){
             gridImage.setImageResource(R.drawable.ic_null_fastfood_24);
