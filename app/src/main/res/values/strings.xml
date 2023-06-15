@@ -44,4 +44,10 @@
     <string name="rating">Оценки</string>
     <string name="added_to_favorites">добавлен в избранное</string>
     <string name="deleted_from_favorites">удален из избранного</string>
+    <string name="deleted_from_rating">удален из оценок</string>
+    <string name="admin_profile">Админ</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="colon">:</string>
+    <string name="rating_count">Кол-во оценок</string>
 </resources>

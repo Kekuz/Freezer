@@ -58,32 +58,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
     <GridView
         android:id="@+id/profile_grid_view"
-        android:verticalSpacing="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="1"/>
 
-    <!-- Когда начнут работать пункты меню, надо будет убрать кнопку и FrameLayout -->
-    <Button
-        android:id="@+id/logout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:text="@string/logout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
 
-
-        android:layout_gravity="bottom|center"
-        android:visibility="gone"
-        />
-</FrameLayout>
 
 </LinearLayout>

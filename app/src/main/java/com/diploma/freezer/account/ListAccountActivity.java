@@ -79,21 +79,26 @@ public class ListAccountActivity extends AppCompatActivity {
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-            Toast.makeText(ListAccountActivity.this, ListAccountActivity.this.getString(R.string.product_deleted), Toast.LENGTH_SHORT).show();
 
             if(type.equals("favorites")){
 
+                String name = currentFirebaseUser.getFavorites().get(viewHolder.getAdapterPosition());
                 currentFirebaseUser.getFavorites().remove(viewHolder.getAdapterPosition());
                 convertedFavorites.remove(viewHolder.getAdapterPosition());
 
                 currentFirebaseUser.saveFavoritesListFirebase(convertedFavorites);
 
                 listItemAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+
+                Toast.makeText(ListAccountActivity.this, name + " " + ListAccountActivity.this.getString(R.string.deleted_from_favorites), Toast.LENGTH_SHORT).show();
+
             }else{
 
 
                 List<String> keys = new ArrayList<>(currentFirebaseUser.getUserRating().keySet());
                 String name = keys.get(viewHolder.getAdapterPosition());// Имя рецепта
+
+                Toast.makeText(ListAccountActivity.this, name + " " + ListAccountActivity.this.getString(R.string.deleted_from_rating), Toast.LENGTH_SHORT).show();
 
 
 

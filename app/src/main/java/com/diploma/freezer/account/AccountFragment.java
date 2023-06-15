@@ -53,27 +53,23 @@ public class AccountFragment extends Fragment {
         accountItemsAdapter = new AccountItemsAdapter(inflatedView.getContext(), accountItems);
         gridView.setAdapter(accountItemsAdapter);
 
-        //Чтобы обрабатывать нажатия нужно сделать GridView
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Log.d("AccountGridViewInfo: ", "position " + i + " "+ accountItems.get(i));
+        gridView.setOnItemClickListener((adapterView, view, i, l) -> {
 
-                Intent intent;
-                if(i == 0){
-                    intent = new Intent(inflatedView.getContext(), ProfileActivity.class);
-                }else if (i == 1){
-                    intent = new Intent(inflatedView.getContext(), ListAccountActivity.class);
-                    intent.putExtra("type", "favorites");
-                }else{
-                    intent = new Intent(inflatedView.getContext(), ListAccountActivity.class);
-                    intent.putExtra("type", "rating");
-                }
+            Log.d("AccountGridViewInfo: ", "position " + i + " "+ accountItems.get(i));
 
-                startActivity(intent);
-
+            Intent intent;
+            if(i == 0){
+                intent = new Intent(inflatedView.getContext(), ProfileActivity.class);
+            }else if (i == 1){
+                intent = new Intent(inflatedView.getContext(), ListAccountActivity.class);
+                intent.putExtra("type", "favorites");
+            }else{
+                intent = new Intent(inflatedView.getContext(), ListAccountActivity.class);
+                intent.putExtra("type", "rating");
             }
+            startActivity(intent);
+
         });
 
 
@@ -82,21 +78,6 @@ public class AccountFragment extends Fragment {
             startActivity(intent);
             getActivity().finish();
         }
-
-        //Это надо будет убрать, когда будут работать кнопки меню
-        nameTextView.setOnClickListener(v -> {
-            button.setVisibility(View.VISIBLE);
-        });
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity().getApplicationContext(), Login.class);
-                startActivity(intent);
-                getActivity().finish();
-            }
-        });
 
         return inflatedView;
     }
